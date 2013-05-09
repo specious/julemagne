@@ -41,12 +41,10 @@ body {
 	overflow: scroll;
 	visibility: hidden;
 }
-#art-title, #art-alt {
-	text-align: center;
-}
 #art-title {
 	color: #1bf;
 	font: oblique 18px/1.8 "georgia",serif;
+	text-align: center;
 }
 #nav-buttons {
 	width: 88px;

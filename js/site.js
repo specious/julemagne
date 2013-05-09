@@ -4,7 +4,7 @@ $(function() {
 	var showcase = $("#showcase");
 
 	showcase.CloudCarousel({			
-		xPos: 980/2,
+		xPos: 980 / 2,
 		yPos: 50,
 		yRadius: 480 / 10,
 		reflHeight: 56,
