@@ -1,4 +1,5 @@
 @font-face {
+  /* source: http://www.fontsquirrel.com/fonts/Carrington */
   font-family: 'CarringtonRegular';
   src: url('../fonts/Carrington-webfont.eot');
   src: url('../fonts/Carrington-webfont.eot?#iefix') format('embedded-opentype'),
@@ -19,12 +20,16 @@ body {
 	background-color: black;
 }
 #author {
-	color: rgba(190, 184, 184, 0.83);
+	color: rgba(253, 244, 52, 0.83);
 	text-shadow: 2px 3px 6px #555;
 	font-family: 'CarringtonRegular';
 	font-size: 54px;
 	letter-spacing: 0.13em;
 	text-align: center;
+}
+#author > .initial {
+  color: #FFF51C;
+  text-shadow: 2px 3px 6px #84834A;
 }
 #top-separator {
 	border-color: #191919;
@@ -49,6 +54,7 @@ body {
 #nav-buttons {
 	width: 88px;
 	margin: 12px auto;
+  margin-top: 15px;
 	display: block;
 }
 .nav-button {
@@ -67,6 +73,10 @@ body {
 	background-image: url('../gfx/btn-right.png');
   margin-right: auto;
   margin-left: 44px;
+}
+#expand {
+  margin-top: 55px;
+  text-align: center;
 }
 
 /*

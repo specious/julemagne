@@ -68,6 +68,10 @@ function sortByRows( items, rowWidth ) {
 $(function() {
   var showcase = initShowcase();
 
+  $('#author').click( function() {
+    $('#contact-form').fadeIn( 800 );
+  } );
+
   $('#expand > button').click( function() {
     // TODO: turn off carousel controls
     $("#expand").fadeOut( 1300 );
