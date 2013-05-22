@@ -15,9 +15,7 @@ function initShowcase() {
     reflGap: 2,
     speed: 0.18,
     buttonLeft: $("#nav-left"),
-    buttonRight: $("#nav-right"),
-    titleBox: $("#art-title"),
-    altBox: $("#art-alt")
+    buttonRight: $("#nav-right")
   });
 
   // CloudCarousel messes it up on init

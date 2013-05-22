@@ -19,22 +19,33 @@ body {
 ::selection {
 	background-color: black;
 }
-#author {
-	color: rgba(253, 244, 52, 0.83);
-	text-shadow: 2px 3px 6px #555;
-	font-family: 'CarringtonRegular';
-	font-size: 54px;
-	letter-spacing: 0.13em;
-	text-align: center;
+#title, #title-highlight {
+  width: 650px;
+  height: 92px;
+  background-image: url('../gfx/title.png');
+  margin: 0 auto;
 }
-#author > .initial {
-  color: #FFF51C;
-  text-shadow: 2px 3px 6px #84834A;
+#title-highlight {
+  background-position: 0px 109px;
+  opacity: 0;
+
+  -webkit-transition: all 0.05s ease-in;
+  -moz-transition: all 0.05s ease-in;
+  -o-transition: all 0.05s ease-in;
+  transition: all 0.05s ease-in;
+
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
 }
-#top-separator {
+#title-highlight:hover {
+  opacity: 1;
+}
+#title-separator {
 	border-color: #191919;
-	width: 39%;
-	margin-top: 6px;
+	width: 59%;
+  margin-top: -2px;
 }
 #wrap {
 	width: 980px;
