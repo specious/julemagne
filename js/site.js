@@ -72,6 +72,10 @@ $(function() {
     $('#contact-form').fadeIn( 800 );
   } );
 
+  $('#contact-form #close').click( function() {
+    $('#contact-form').fadeOut( 400 );
+  } );
+
   $('#expand > button').click( function() {
     // TODO: turn off carousel controls
     $("#expand").fadeOut( 1300 );
