@@ -28,6 +28,10 @@ function initShowcase() {
   return showcase;
 }
 
+function contactFormClose() {
+  $('#contact-form').fadeOut( 400 );
+}
+
 function sortByRows( items, rowWidth ) {
   var x = 0;
   var row = 0;
@@ -63,6 +67,9 @@ function sortByRows( items, rowWidth ) {
   return row + 1;
 }
 
+//
+// Main
+//
 $(function() {
   var showcase = initShowcase();
 
@@ -71,9 +78,7 @@ $(function() {
     form.fadeIn( 800 );
   } );
 
-  $('#contact-form #close').click( function() {
-    $('#contact-form').fadeOut( 400 );
-  } );
+  $('#contact-form #close').click( contactFormClose );
 
   $('#expand > button').click( function() {
     // TODO: turn off carousel controls
@@ -117,3 +122,26 @@ $(function() {
     });
   } );
 })
+
+$(document).keydown(function(e) {
+  //
+  // Codes: http://www.javascripter.net/faq/keycodes.htm
+  //
+  switch( e.keyCode ) {
+    /* left arrow */
+    case 37:
+      $("#nav-left").mouseup();
+      break;
+
+    /* right arrow */
+    case 39:
+      $("#nav-right").mouseup();
+      break;
+
+    /* escape */
+    case 27: 
+      if( typeof contactFormClose === 'function')
+        contactFormClose();
+      break;
+  }
+});
