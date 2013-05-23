@@ -123,6 +123,19 @@ $(function() {
   } );
 })
 
+function showcaseMove( buttonId ) {
+  $( buttonId ).mouseup();
+
+  // Flash button highlight
+  var hi = $( buttonId + "-highlight" );
+  hi.stop();
+  hi.css( 'opacity', '0' );
+  hi.css( 'display', 'block' );
+  hi.animate( {'opacity': '0.5'}, 100, 'swing', function() {
+    hi.animate( {'opacity': '0'}, 160, 'swing' );
+  } );
+}
+
 $(document).keydown(function(e) {
   //
   // Codes: http://www.javascripter.net/faq/keycodes.htm
@@ -130,12 +143,14 @@ $(document).keydown(function(e) {
   switch( e.keyCode ) {
     /* left arrow */
     case 37:
-      $("#nav-left").mouseup();
+      if( typeof showcaseMove === 'function')
+      showcaseMove( '#nav-left' );
       break;
 
     /* right arrow */
     case 39:
-      $("#nav-right").mouseup();
+      if( typeof showcaseMove === 'function')
+      showcaseMove( '#nav-right' );
       break;
 
     /* escape */

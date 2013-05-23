@@ -93,30 +93,37 @@ body {
 	visibility: hidden;
 }
 #nav-buttons {
-	width: 88px;
+	width: 168px;
 	margin: 12px auto;
   margin-top: 15px;
 	display: block;
 }
-.nav-button {
-	width: 40px;
-	height: 40px;
+.nav-button, .nav-button-highlight {
+	width: 80px;
+	height: 60px;
+  background-image: url('../gfx/arrows.png');
+  cursor: pointer;
   position: absolute;
 }
-.nav-button:hover {
-	background-position: 0px 40px;
+.nav-button-highlight {
+  display: none;
 }
 #nav-left {
-	background-image: url('../gfx/btn-left.png');
   margin-left: auto;
 }
+#nav-left:hover, #nav-left-highlight {
+  background-position: 0px 62px;
+}
 #nav-right {
-	background-image: url('../gfx/btn-right.png');
+  background-position: 80px 0px;
   margin-right: auto;
-  margin-left: 44px;
+  margin-left: 84px;
+}
+#nav-right:hover, #nav-right-highlight {
+  background-position: 80px 62px;
 }
 #expand {
-  margin-top: 55px;
+  margin-top: 82px;
   text-align: center;
 }
 
