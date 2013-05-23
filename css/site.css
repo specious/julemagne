@@ -12,6 +12,13 @@
 body {
 	background-color: black;
 	color: #eee;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 ::-moz-selection {
 	background-color: black;
@@ -47,6 +54,33 @@ body {
 	width: 59%;
   margin-top: -2px;
 }
+#menu {
+  text-align: center;
+  margin-top: 0.25em;
+}
+#menu a {
+  color: rgba(253, 244, 52, 0.83);
+  font-family: 'CarringtonRegular';
+  font-size: 30px;
+  letter-spacing: 0.13em;
+  text-shadow: 2px 3px 6px #555;
+  text-decoration: none;
+  margin: 0 0.4em;
+
+  -webkit-transition: all 0.05s ease-in;
+  -moz-transition: all 0.05s ease-in;
+  -o-transition: all 0.05s ease-in;
+  transition: all 0.05s ease-in;
+
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+#menu a:hover {
+  color: #FFF51C;
+  text-shadow: 2px 3px 6px #84834A;
+}
 #wrap {
 	width: 980px;
 	margin: 0 auto;
@@ -56,11 +90,6 @@ body {
 	height: 404px;
 	overflow: scroll;
 	visibility: hidden;
-}
-#art-title {
-	color: #1bf;
-	font: oblique 18px/1.8 "georgia",serif;
-	text-align: center;
 }
 #nav-buttons {
 	width: 88px;

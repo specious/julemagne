@@ -66,8 +66,9 @@ function sortByRows( items, rowWidth ) {
 $(function() {
   var showcase = initShowcase();
 
-  $('#author').click( function() {
-    $('#contact-form').fadeIn( 800 );
+  $('#contact').click( function() {
+    var form = $('#contact-form');
+    form.fadeIn( 800 );
   } );
 
   $('#contact-form #close').click( function() {
