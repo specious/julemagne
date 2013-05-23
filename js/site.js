@@ -84,7 +84,7 @@ $(function() {
     // TODO: turn off carousel controls
     $("#expand").fadeOut( 1300 );
     $("#nav-buttons").fadeOut( 1300 );
-    $("#nav-left").animate( {'margin-left': '-300px'}, 1300 );
+    $("#nav-left").animate( {'margin-right': '300px'}, 1300 );
     $("#nav-right").animate( {'margin-left': '344px'}, 1300 );
 
     var items = showcase.data('cloudcarousel').items;

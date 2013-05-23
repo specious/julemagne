@@ -10,8 +10,8 @@
   font-style: normal;
 }
 body {
-	background-color: black;
-	color: #eee;
+  background-color: black;
+  color: #eee;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -21,10 +21,10 @@ body {
   user-select: none;
 }
 ::-moz-selection {
-	background-color: black;
+  background-color: black;
 }
 ::selection {
-	background-color: black;
+  background-color: black;
 }
 #title, #title-highlight {
   width: 650px;
@@ -50,8 +50,8 @@ body {
   opacity: 1;
 }
 #title-separator {
-	border-color: #191919;
-	width: 59%;
+  border-color: #191919;
+  width: 59%;
   margin-top: -2px;
 }
 #menu {
@@ -82,48 +82,47 @@ body {
   text-shadow: 2px 3px 6px #84834A;
 }
 #wrap {
-	width: 980px;
-	margin: 0 auto;
+  width: 980px;
+  margin: 0 auto;
   position: relative;
 }
 #showcase {
-	width: 100%;
-	height: 404px;
-	overflow: scroll;
-	visibility: hidden;
+  width: 100%;
+  height: 404px;
+  overflow: scroll;
+  visibility: hidden;
 }
 #nav-buttons {
-	width: 168px;
-	margin: 12px auto;
   margin-top: 15px;
-	display: block;
+  text-align: center;
+}
+.nav-button {
+  display:inline-block;
 }
 .nav-button, .nav-button-highlight {
-	width: 80px;
-	height: 60px;
+  width: 80px;
+  height: 60px;
   background-image: url('../gfx/arrows.png');
   cursor: pointer;
-  position: absolute;
 }
 .nav-button-highlight {
   display: none;
 }
 #nav-left {
-  margin-left: auto;
+  margin-right: 4px;
 }
 #nav-left:hover, #nav-left-highlight {
   background-position: 0px 62px;
 }
 #nav-right {
   background-position: 80px 0px;
-  margin-right: auto;
-  margin-left: 84px;
+  margin-left: 4px;
 }
 #nav-right:hover, #nav-right-highlight {
   background-position: 80px 62px;
 }
 #expand {
-  margin-top: 82px;
+  margin: 0;
   text-align: center;
 }
 
