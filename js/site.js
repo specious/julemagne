@@ -28,10 +28,6 @@ function initShowcase() {
   return showcase;
 }
 
-function contactFormClose() {
-  $('#contact-form').fadeOut( 400 );
-}
-
 function sortByRows( items, rowWidth ) {
   var x = 0;
   var row = 0;
@@ -73,19 +69,13 @@ function sortByRows( items, rowWidth ) {
 $(function() {
   var showcase = initShowcase();
 
-  $('#contact').click( function() {
-    var form = $('#contact-form');
-    form.fadeIn( 800 );
-  } );
-
-  $('#contact-form #close').click( contactFormClose );
-
   $('#expand > button').click( function() {
     // TODO: turn off carousel controls
     $("#expand").fadeOut( 1300 );
     $("#nav-buttons").fadeOut( 1300 );
     $("#nav-left").animate( {'margin-right': '300px'}, 1300 );
     $("#nav-right").animate( {'margin-left': '344px'}, 1300 );
+    contactFormClose();
 
     var items = showcase.data('cloudcarousel').items;
     var spotX = 0, spotY = 0;

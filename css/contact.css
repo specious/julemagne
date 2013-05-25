@@ -42,7 +42,6 @@
   position: absolute;
   z-index: 9999;
 }
-
 #contact-form #close {
   width: 23px;
   height: 21px;
@@ -53,7 +52,6 @@
   display: block;
   position: absolute;
 }
-
 #contact-form h1 {
   color: black;
   font-family: 'KaushanScriptRegular';
@@ -62,7 +60,6 @@
   margin-bottom: 0.4em;
   margin-left: -0.134em; /* correct for font letter drift */
 }
-
 #contact-form h2 {
   color: black;
   font: 14px/1.5 Arial,sans-serif;
@@ -70,19 +67,16 @@
   margin-top: 0;
   margin-bottom: 0.6em;
 }
-
 #contact-form label {
   color: black;
   font-size: 14px;
 }
-
 #contact-form input,
 #contact-form select,
 #contact-form textarea {
   font-size: 12px;
   margin-bottom: 2px;
 }
-
 #contact-form input,
 #contact-form select,
 #contact-form textarea {
@@ -91,25 +85,22 @@
   margin-bottom: 5px;
   padding: 4px;
 }
-
 #contact-form input:focus,
 #contact-form select:focus,
 #contact-form textarea:focus {
   border: 1px solid #AFCDD8;
   background-color: #EBF2F4;
 }
-
 #contact-form textarea {
-  height: 100px;
+  height: 91px;
   resize: none;
 }
-
 #contact-form label {
   display:block;
 }
-
 #contact-form #submit {
   width: 100px;
+  height: 23px;
   background-color: #4B6C76;
   color: #FFF;
   border: none;
@@ -121,103 +112,43 @@
   -webkit-border-radius: 8px;
   cursor: pointer;
 }
-
 #contact-form #submit:hover {
   background-color: #5F8793;
 }
-
 #contact-form #submit:active {
   position: relative;
   top: 1px;
 }
-/*
-#contact-form #loading {
-  width: 32px;
-  height: 32px;
-  background-image: url(../img/loading.gif);
-  display: block;
-  position: absolute;
-  right: 130px;
-  bottombottom: 16px;
+#contact-form #submit.error {
+  color: white;
+  background-color: red;
+}
+#contact-form #success {
+  text-align: center;
   display: none;
 }
-*/
-#errors {
-  border: solid 1px #E58E8E;
-  padding: 10px;
-  margin: 25px 0px;
-  display: block;
-  width: 437px;
-  border-radius: 8px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  background: #FFE6E6 url(../img/cancel_48.png) no-repeat 405px center;
-  display: none;
-}
-
-#errors li {
-  padding: 2px;
-  list-style: none;
-}
-
-#errors li:before {
-  content: ' - ';
-}
-
-#errors #info {
+#contact-form #success #text {
+  color: black;
+  font-family: Arial;
+  font-size: 16px;
   font-weight: bold;
+  margin: 0;
 }
-
-#errors #info:before {
-  content: '';
+#contact-form #success img {
+  margin-top: 0.6em;
+  display: inline-block;
 }
-
-#success {
-  border: solid 1px #83D186;
-  padding: 25px 10px;
-  margin: 25px 0px;
-  display: block;
-  width: 437px;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-  background: #D3EDD3 url(../img/accepted_48.png) no-repeat 405px center;
-  font-weight: bold;
-  display: none;
+input:required,
+textarea:required {
+  /* let required fields go incognito */
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
 }
-
-#errors.visible, #success.visible {
-  display: block;
-}
-
-#req-field-desc {
-  font-style: italic;
-}
-
-/* Remove box shadow firefox, chrome and opera put around required fields. It looks rubbish. */
-input:required, textarea:required {
-  -moz-box-shadow:none;
-  -webkit-box-shadow:none;
-  -o-box-shadow:none;
-  box-shadow:none;
-}
-
-/* Normalise placeholder styles */
-
-/* chrome, safari */
-::-webkit-input-placeholder {
-  color: #CCC;
-  font-style: italic;
-}
-
-/* mozilla */
-input:-moz-placeholder, textarea:-moz-placeholder {
-  color: #CCC;
-  font-style: italic;
-}
-
-/* ie (faux placeholder) */
-input.placeholder-text, textarea.placeholder-text {
+::-webkit-input-placeholder,
+input:-moz-placeholder,
+textarea:-moz-placeholder {
   color: #CCC;
   font-style: italic;
 }

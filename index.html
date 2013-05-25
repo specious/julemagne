@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!--
+    Graphics and paintings by:
+      Julie David (Twitter: @julemagne)
+
+    Programming by:
+      Ildar Sagdejev (Twitter: @tknomad)
+  -->
   <meta charset="UTF-8">
   <title>Julie David - Fine art, add to cart!</title>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -9,26 +16,27 @@
   <script type="text/javascript" src="js/lib/jquery.js"></script>
   <script type="text/javascript" src="js/carousel.js"></script> 
   <script type="text/javascript" src="js/site.js"></script>
+  <script type="text/javascript" src="js/contact.js" async></script>
 </head>
 <body>
   <div id="wrap">
     <div id="title">
       <div id="title-highlight"></div>
-      <hr id="title-separator" />
+      <hr>
     </div>
     <div id="menu">
       <a id="about" href="#about">About</a>
       <a id="contact" href="#contact">Contact</a>
     </div>
     <div id="showcase">
-      <img class="cloudcarousel" src="gfx/art/thumbs/what-would-rembrandt-do.png" alt="$1000" title="What Would Rembrandt Do?" />
-      <img class="cloudcarousel" src="gfx/art/thumbs/transformation.png" alt="$1000" title="Transformation" />
-      <img class="cloudcarousel" src="gfx/art/thumbs/does-what-s-inside-matter.png" alt="$1000" title="Does What's Inside Matter?" />
-      <img class="cloudcarousel" src="gfx/art/thumbs/i-m-so-fat.png" alt="$1000" title="I'm So Fat!" />
-      <img class="cloudcarousel" src="gfx/art/thumbs/free-food-at-the-beach-insurance.png" alt="$1000" title="Free Food at the Beach / Insurance" />
-      <img class="cloudcarousel" src="gfx/art/thumbs/don-t-hate-the-player-hate-the-game.png" alt="$1000" title="Don't Hate the Player; Hate the Game" />
-      <img class="cloudcarousel" src="gfx/art/thumbs/malleable.png" alt="$1000" title="Malleable" />
-   </div>
+      <img class="cloudcarousel" src="gfx/art/thumbs/what-would-rembrandt-do.png" alt="$1000" title="What Would Rembrandt Do?">
+      <img class="cloudcarousel" src="gfx/art/thumbs/transformation.png" alt="$1000" title="Transformation">
+      <img class="cloudcarousel" src="gfx/art/thumbs/does-what-s-inside-matter.png" alt="$1000" title="Does What's Inside Matter?">
+      <img class="cloudcarousel" src="gfx/art/thumbs/i-m-so-fat.png" alt="$1000" title="I'm So Fat!">
+      <img class="cloudcarousel" src="gfx/art/thumbs/free-food-at-the-beach-insurance.png" alt="$1000" title="Free Food at the Beach / Insurance">
+      <img class="cloudcarousel" src="gfx/art/thumbs/don-t-hate-the-player-hate-the-game.png" alt="$1000" title="Don't Hate the Player; Hate the Game">
+      <img class="cloudcarousel" src="gfx/art/thumbs/malleable.png" alt="$1000" title="Malleable">
+    </div>
     <div id="nav-buttons">
       <div id="nav-left" class="nav-button">
         <div class="nav-button-highlight" id="nav-left-highlight"></div>
@@ -45,25 +53,25 @@
       <a id="close" title="Close"></a>
       <h1>Get In Touch!</h1>
       <h2>Give me a shout! I will reply to you shortly.</h2>
-      <ul id="errors">
-        <li id="info">There were some problems with your form submission:</li>
-      </ul>
-      <p id="success">Thanks for your message! Julemagne will get back to you ASAP!</p>
       <form action="contact.php" method="post">
-        <label for="enquiry">Enquiry: </label>
+        <label for="enquiry">Enquiry:</label>
         <select id="enquiry" name="enquiry">
           <option value="price">I'd like to ask the price for a painting</option>
           <option value="hire">I want to hire you</option>
           <option value="thank">I want to thank you</option>
         </select>
-        <label for="name">Name: </label>
-        <input type="text" id="name" name="name" value="" placeholder="Paul Cézanne" required="required" autofocus="autofocus" />
-        <label for="email">Email Address: </label>
-        <input type="email" id="email" name="email" value="" placeholder="cezanne@example.com" required="required" />
-        <label for="message">Message: </label>
-        <textarea id="message" name="message"></textarea>
-        <input type="submit" id="submit" value="Send" />
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Paul Cézanne" required autofocus>
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" placeholder="cezanne@example.com" required>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+        <input type="submit" id="submit" value="Send">
       </form>
+      <div id="success">
+        <p id="text">Thanks for your message! Julemagne will get back to you ASAP!</p>
+        <img src="gfx/art/thumbs/what-would-rembrandt-do.png" alt="Julemagne">
+      </div>
     </div>
   </div>
 </body>

@@ -49,7 +49,7 @@ body {
 #title-highlight:hover {
   opacity: 1;
 }
-#title-separator {
+#title hr {
   border-color: #191919;
   width: 59%;
   margin-top: -2px;
