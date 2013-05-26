@@ -4,8 +4,10 @@ var GALLERY_ITEM_MARGIN_X = 20;
 var GALLERY_ROW_HEIGHT = 330;
 var GALLERY_TOP_OFFSET = 30;
 
+var showcase;
+
 function initShowcase() {
-  var showcase = $("#showcase");
+  showcase = $("#showcase");
 
   showcase.CloudCarousel({
     xPos: 980 / 2,
@@ -24,9 +26,18 @@ function initShowcase() {
 
   showcase.css('visibility', 'visible');
   showcase.css('display', 'none');
-  showcase.fadeIn( 1000 );
+  showcase.fadeIn( 1000, function() {
+    $('#expand > button').click( showcaseExpand );
+  } );
+}
 
-  return showcase;
+function showcaseUpdated( showcase ) {
+  $('#art-title').html(
+    $(showcase.nearestItem().image).attr('alt')
+  );
+
+  var c = Math.cos((showcase.floatIndex() % 1) * 2 * Math.PI);
+  $('#art-title').css( 'opacity', 0.5 + (0.5 * c) );
 }
 
 function showcaseUpdated( showcase ) {
@@ -73,57 +84,56 @@ function sortByRows( items, rowWidth ) {
   return row + 1;
 }
 
-//
-// Main
-//
-$(function() {
-  var showcase = initShowcase();
+function showcaseExpand() {
+  // Turn off carousel controls
+  showcaseMove = null;
 
-  $('#expand > button').click( function() {
-    // TODO: turn off carousel controls
-    $("#expand").fadeOut( 1300 );
-    $("#nav-buttons").fadeOut( 1300 );
-    $("#nav-left").animate( {'margin-right': '300px'}, 1300 );
-    $("#nav-right").animate( {'margin-left': '344px'}, 1300 );
-    contactFormClose();
+  // ...todo: halt carousel engine
 
-    var items = showcase.data('cloudcarousel').items;
-    var spotX = 0, spotY = 0;
+  $('#expand').fadeOut( 1300 );
+  $('#nav-buttons').fadeOut( 1300 );
+  $('#art-title').fadeOut( 1300 );
+  $('#nav-left').animate( {'margin-right': '300px'}, 1300 );
+  $('#nav-right').animate( {'margin-left': '344px'}, 1300 );
+  contactFormClose();
 
-    var rows = sortByRows( items, showcase.width() );
+  var items = showcase.data('cloudcarousel').items;
+  var spotX = 0, spotY = 0;
 
-    // Grow the container to accomodate the entire gallery
-    showcase.animate(
-      { height: GALLERY_TOP_OFFSET + (rows * GALLERY_ROW_HEIGHT) + 'px' },
-      2000
-    );
+  var rows = sortByRows( items, showcase.width() );
 
-    $(items).each( function() {
-      var item = this;
-      var startX = this.x;
-      var startY = this.y;
-      var startScale = this.scale;
+  // Grow the container to accomodate the entire gallery
+  showcase.animate(
+    { height: GALLERY_TOP_OFFSET + (rows * GALLERY_ROW_HEIGHT) + 'px' },
+    2000
+  );
 
-      var destX = this.galleryX;
-      var destY = GALLERY_TOP_OFFSET + (this.galleryRow * GALLERY_ROW_HEIGHT);
+  $(items).each( function() {
+    var item = this;
+    var startX = this.x;
+    var startY = this.y;
+    var startScale = this.scale;
 
-      $({ i: 0 }).animate(
-        { i: 2000 }, {
-          duration: 2000,
-          step: function( step ) {
-            item.moveTo(
-              startX + (destX - startX) * (step/2000),
-              startY + (destY - startY) * (step/2000),
-              startScale + (1.0 - startScale) * (step/2000)
-            );
-          }
+    var destX = this.galleryX;
+    var destY = GALLERY_TOP_OFFSET + (this.galleryRow * GALLERY_ROW_HEIGHT);
+
+    $({ i: 0 }).animate(
+      { i: 2000 }, {
+        duration: 2000,
+        step: function( step ) {
+          item.moveTo(
+            startX + (destX - startX) * (step/2000),
+            startY + (destY - startY) * (step/2000),
+            startScale + (1.0 - startScale) * (step/2000)
+          );
         }
-      );
-    });
-  } );
-})
+      }
+    );
+  });
+}
 
 function showcaseMove( buttonId ) {
+  // Trigger button "click"
   $( buttonId ).mouseup();
 
   // Flash button highlight
@@ -136,6 +146,13 @@ function showcaseMove( buttonId ) {
   } );
 }
 
+//
+// Main
+//
+$(function() {
+  initShowcase();
+})
+
 $(document).keydown(function(e) {
   //
   // Codes: http://www.javascripter.net/faq/keycodes.htm
@@ -144,13 +161,13 @@ $(document).keydown(function(e) {
     /* left arrow */
     case 37:
       if( typeof showcaseMove === 'function')
-      showcaseMove( '#nav-left' );
+        showcaseMove( '#nav-left' );
       break;
 
     /* right arrow */
     case 39:
       if( typeof showcaseMove === 'function')
-      showcaseMove( '#nav-right' );
+        showcaseMove( '#nav-right' );
       break;
 
     /* escape */
