@@ -15,7 +15,8 @@ function initShowcase() {
     reflGap: 2,
     speed: 0.18,
     buttonLeft: $("#nav-left"),
-    buttonRight: $("#nav-right")
+    buttonRight: $("#nav-right"),
+    onUpdated: showcaseUpdated
   });
 
   // CloudCarousel messes it up on init
@@ -26,6 +27,15 @@ function initShowcase() {
   showcase.fadeIn( 1000 );
 
   return showcase;
+}
+
+function showcaseUpdated( showcase ) {
+  $('#art-title').html(
+    $(showcase.nearestItem().image).attr('alt')
+  );
+
+  var c = Math.cos((showcase.floatIndex() % 1) * 2 * Math.PI);
+  $('#art-title').css( 'opacity', 0.5 + (0.5 * c) );
 }
 
 function sortByRows( items, rowWidth ) {
