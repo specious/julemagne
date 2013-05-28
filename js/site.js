@@ -10,7 +10,7 @@ var showcase;
 function initShowcase() {
   showcase = $("#showcase");
 
-  showcase.CloudCarousel({
+  showcase.Cloud9Carousel({
     xPos: 980 / 2,
     yPos: 50,
     yRadius: 480 / 10,
@@ -98,7 +98,7 @@ function showcaseExpand() {
   $('#nav-right').animate( {'margin-left': '344px'}, 1300 );
   contactFormClose();
 
-  var items = showcase.data('cloudcarousel').items;
+  var items = showcase.data('cloud9carousel').items;
   var spotX = 0, spotY = 0;
 
   var rows = sortByRows( items, showcase.width() );
