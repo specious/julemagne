@@ -351,7 +351,7 @@
         onUpdated: null
       }, options );
 
-      $(this).data('cloudcarousel', new Carousel(this, $('.'+options.itemClass, $(this)), options));
+      $(this).data('cloud9carousel', new Carousel(this, $('.'+options.itemClass, $(this)), options));
     } );
   };
 })(jQuery);
