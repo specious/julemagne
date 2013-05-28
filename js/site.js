@@ -1,8 +1,9 @@
 /* Aloha! */
 
+var GALLERY_MARGIN_HEADER = 32;
+var GALLERY_MARGIN_FOOTER = 12;
 var GALLERY_ITEM_MARGIN_X = 20;
-var GALLERY_ROW_HEIGHT = 330;
-var GALLERY_TOP_OFFSET = 30;
+var GALLERY_ROW_HEIGHT = 330 + 64;
 
 var showcase;
 
@@ -104,7 +105,9 @@ function showcaseExpand() {
 
   // Grow the container to accomodate the entire gallery
   showcase.animate(
-    { height: GALLERY_TOP_OFFSET + (rows * GALLERY_ROW_HEIGHT) + 'px' },
+    { height: GALLERY_MARGIN_HEADER
+                + (rows * GALLERY_ROW_HEIGHT)
+                + GALLERY_MARGIN_FOOTER + 'px' },
     2000
   );
 
@@ -115,7 +118,7 @@ function showcaseExpand() {
     var startScale = this.scale;
 
     var destX = this.galleryX;
-    var destY = GALLERY_TOP_OFFSET + (this.galleryRow * GALLERY_ROW_HEIGHT);
+    var destY = GALLERY_MARGIN_HEADER + (this.galleryRow * GALLERY_ROW_HEIGHT);
 
     $({ i: 0 }).animate(
       { i: 2000 }, {
@@ -126,6 +129,15 @@ function showcaseExpand() {
             startY + (destY - startY) * (step/2000),
             startScale + (1.0 - startScale) * (step/2000)
           );
+        },
+        complete: function() {
+          artInfo = $(item.div).append( '<p class="art-info">' + item.alt + '</p>' );
+
+          $(item.div).hover( function() {
+            $(item.div).find('.art-info').fadeTo( 200, 1 );
+          }, function() {
+            $(item.div).find('.art-info').fadeTo( 200, 0.8 );
+          } );
         }
       }
     );

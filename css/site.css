@@ -65,6 +65,7 @@ body {
   letter-spacing: 0.13em;
   text-shadow: 2px 3px 6px #555;
   text-decoration: none;
+  outline: none;
   margin: 0 0.4em;
 
   -webkit-transition: all 0.05s ease-in;
@@ -92,14 +93,19 @@ body {
   overflow: scroll;
   visibility: hidden;
 }
-#art-title {
+#art-title,
+.art-info {
   color: #cecece;
   font-family: 'CarringtonRegular';
-  font-size: 18px;
+  font-size: 21px;
   letter-spacing: 0.13em;
   text-shadow: 2px 3px 6px #555;
   text-align: center;
   margin-top: 30px;
+}
+.art-info {
+  margin-top: 319px;
+  opacity: 0.8;
 }
 #nav-buttons {
   margin-top: 15px;
