@@ -105,11 +105,11 @@
   color: #FFF;
   border: none;
   display: block;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-right: 6px;
-  border-radius: 8px;
-  -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
   cursor: pointer;
 }
 #contact-form #submit:hover {
@@ -138,17 +138,27 @@
   margin-top: 0.6em;
   display: inline-block;
 }
-input:required,
-textarea:required {
+#contact-form input:required,
+#contact-form textarea:required {
   /* let required fields go incognito */
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   -o-box-shadow: none;
   box-shadow: none;
 }
-::-webkit-input-placeholder,
-input:-moz-placeholder,
-textarea:-moz-placeholder {
+#contact-form ::-webkit-input-placeholder {
+  color: #CCC;
+  font-style: italic;
+}
+#contact-form ::-moz-placeholder { /* Firefox 4-18 */
+  color: #CCC;
+  font-style: italic;
+}
+#contact-form :-moz-placeholder { /* Firefox 19+ */
+  color: #CCC;
+  font-style: italic;
+}
+#contact-form :-ms-input-placeholder { /* Internet Explorer 10+ */
   color: #CCC;
   font-style: italic;
 }
