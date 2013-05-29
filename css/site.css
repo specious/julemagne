@@ -12,6 +12,7 @@
 body {
   background-color: black;
   color: #eee;
+  margin: 0;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -78,7 +79,7 @@ body {
   width: 240px;
   background-position: 240px 35px;
 }
-#wrap {
+#gallery {
   width: 980px;
   margin: 0 auto;
   position: relative;
@@ -123,7 +124,7 @@ body {
   margin-right: 4px;
 }
 #nav-left:hover, #nav-left-highlight {
-  background-position: 0px 62px;
+  background-position: 0 62px;
 }
 #nav-right {
   background-position: 80px 0px;
@@ -134,6 +135,15 @@ body {
 }
 #expand {
   margin: 0;
+  text-align: center;
+}
+#footer {
+  color: rgb(253, 244, 52);
+  color: rgba(253, 244, 52, 0.83);
+  font-family: 'CarringtonRegular';
+  font-size: 17px;
+  text-shadow: 2px 2px 6px #555;
+  letter-spacing: 0.13em;
   text-align: center;
 }
 
