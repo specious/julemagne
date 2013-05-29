@@ -71,11 +71,11 @@ body {
   width: 240px;
   background-position: 240px 0;
 }
-#menu #about-highlight {
+#menu #about .shine-overlay {
   width: 300px;
   background-position: 0 35px;
 }
-#menu #contact-highlight {
+#menu #contact .shine-overlay {
   width: 240px;
   background-position: 240px 35px;
 }
@@ -111,26 +111,26 @@ body {
 .nav-button {
   display:inline-block;
 }
-.nav-button, .nav-button-highlight {
+.nav-button,
+.nav-button .shine-overlay {
   width: 80px;
   height: 60px;
   background-image: url('../gfx/arrows.png');
   cursor: pointer;
 }
-.nav-button-highlight {
-  display: none;
-}
 #nav-left {
   margin-right: 4px;
 }
-#nav-left:hover, #nav-left-highlight {
+#nav-left:hover,
+#nav-left .shine-overlay {
   background-position: 0 62px;
 }
 #nav-right {
   background-position: 80px 0px;
   margin-left: 4px;
 }
-#nav-right:hover, #nav-right-highlight {
+#nav-right:hover,
+#nav-right .shine-overlay {
   background-position: 80px 62px;
 }
 #expand {

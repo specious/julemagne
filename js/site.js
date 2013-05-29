@@ -27,7 +27,7 @@ function initShowcase() {
 
   showcase.css('visibility', 'visible');
   showcase.css('display', 'none');
-  showcase.fadeIn( 1000, function() {
+  showcase.fadeIn( 1500, function() {
     $('#expand > button').click( showcaseExpand );
   } );
 }
@@ -146,11 +146,10 @@ function showcaseExpand() {
 }
 
 function showcaseMove( buttonId ) {
-  // Trigger button "click"
-  $( buttonId ).mouseup();
+  // Trigger button "click" and get button highlight overlay
+  var hi = $( buttonId ).mouseup().find( '.shine-overlay' );
 
   // Flash button highlight
-  var hi = $( buttonId + "-highlight" );
   hi.stop();
   hi.css( 'opacity', '0' );
   hi.css( 'display', 'block' );
