@@ -89,7 +89,8 @@ function showcaseExpand() {
   // Turn off carousel controls
   showcaseMove = null;
 
-  // ...todo: halt carousel engine
+  // Halt carousel
+  showcase.data('cloud9carousel').stop();
 
   $('#expand').fadeOut( 1300 );
   $('#nav-buttons').fadeOut( 1300 );
@@ -163,7 +164,7 @@ function showcaseMove( buttonId ) {
 //
 $(function() {
   initShowcase();
-})
+});
 
 $(document).keydown(function(e) {
   //
