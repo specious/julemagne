@@ -7,29 +7,14 @@
 var isEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 var submitting = false;
 
-function contactFormShow() {
-  var form = $('#contact-form');
-  form.fadeIn( 600 );
-  form.find('#name').focus();
-}
-
-function contactFormClose() {
-  if( !submitting )
-    $('#contact-form').stop( true ).fadeOut( 400 );
-}
-
 function flashInput( element ) {
   $(element).stop( true ).fadeTo( 160, 0.6 ).fadeTo( 200, 1 );
 }
 
-
-$(function() {
-  var form = $('#contact-form').find('form'),
+function contactFormSubmitEnable( container ) {
+  var form = container.find('form'),
       fields = form.find('input[type!="submit"],textarea'),
       btnSubmit = form.find('[type="submit"]');
-
-  $('#contact').click( contactFormShow );
-  $('#contact-form #close').click( contactFormClose );
 
   // 
   // An invalid HTML5 form element will not trigger a form submit event,
@@ -62,7 +47,7 @@ $(function() {
     } );
 
     if( valid && !submitting ) {
-      var successBox = $('#contact-form #success');
+      var successBox = container.find('#success');
       btnSubmit.attr( 'value', 'Submitting' );
       submitting = true;
 
@@ -71,7 +56,7 @@ $(function() {
         type: form.attr('method'),
         data: form.serialize(),
         success: function() {
-          var subtitle = $('#contact-form > h2');
+          var subtitle = container.children('h2');
           subtitle.hide();
           form.hide();
           successBox.show();
@@ -101,4 +86,34 @@ $(function() {
     // Prevent automatic submission and default error messages
     return false;
   } );
+}
+
+function contactFormClose() {
+  if( !submitting )
+    $('#contact-form').stop( true ).fadeOut( 400 );
+}
+
+function contactFormShow() {
+  var form = $('#contact-form');
+
+  if( form.length !== 0 ) {
+    form.fadeIn( 600 );
+    form.find('#name').focus();
+  } else {
+    //
+    // Load the contact form, stat!
+    //
+    $.get('contact.html', function( form ) {
+      form = $('#gallery').append( form ).find('#contact-form');
+      form.css('display', 'none');
+
+      form.find('#close').click( contactFormClose );
+      contactFormSubmitEnable( form );
+      contactFormShow();
+    });
+  }
+}
+
+$(function() {
+  $('#contact').click( contactFormShow );
 });

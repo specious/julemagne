@@ -32,11 +32,9 @@
   -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.75), inset 0 0 3px 4px #444417;
   box-shadow: 0 1px 5px rgba(0,0,0,0.75), inset 0 0 3px 4px #444417;
 
-  display: none;
-
   width: 267px;
   right: 66px;
-  top: 134px;
+  top: 20px;
   padding: 21px;
   padding-left: 16px;
   position: absolute;
