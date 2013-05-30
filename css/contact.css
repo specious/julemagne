@@ -41,11 +41,11 @@
   z-index: 9999;
 }
 #contact-form #close {
-  width: 23px;
+  width: 21px;
   height: 21px;
   background: url('../gfx/box-close.png');
-  top: 8px;
-  right: 8px;
+  top: 9px;
+  right: 10px;
   cursor: pointer;
   display: block;
   position: absolute;
