@@ -13,7 +13,7 @@ function iconAnimate( icon ) {
       lastStep = -1;
 
   $({ i: 0 }).animate(
-    { i: 5.9 }, {
+    { i: 10.9 }, {
       duration: 500,
       step: function( step ) {
         /* round the step off for discrete frame jumps */
