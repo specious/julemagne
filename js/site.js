@@ -7,6 +7,30 @@ var GALLERY_ROW_HEIGHT = 330 + 64;
 
 var showcase;
 
+function iconAnimate( icon ) {
+  var i, h = icon.height(),
+      x = icon.stop( true ).css('background-position').split(' ')[0],
+      lastStep = -1;
+
+  $({ i: 0 }).animate(
+    { i: 5.9 }, {
+      duration: 500,
+      step: function( step ) {
+        /* round the step off for discrete frame jumps */
+        step = ~~step;
+
+        if( step != lastStep ) {
+          lastStep = step;
+          icon.css( 'background-position', x + ' ' + (h * step) + 'px' );
+        }
+      },
+      complete: function() {
+        icon.css( 'background-position', x + ' 0' );
+      }
+    }
+  );
+}
+
 function initShowcase() {
   showcase = $("#showcase");
 
@@ -163,6 +187,10 @@ function showcaseMove( buttonId ) {
 //
 $(function() {
   initShowcase();
+
+  $('#social a').mouseenter( function() {
+    iconAnimate( $(this) );
+  } );
 });
 
 $(document).keydown(function(e) {

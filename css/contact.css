@@ -22,7 +22,7 @@
   background: -o-linear-gradient(top,  #d1a633 0%,#ffe673 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(top,  #d1a633 0%,#ffe673 100%); /* IE10+ */
   background: linear-gradient(to bottom,  #d1a633 0%,#ffe673 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b9aa2e', endColorstr='#d6d054',GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1a633', endColorstr='#ffe673',GradientType=0 ); /* IE6-9 */
 
   border: 1px solid #f1da36;
   -webkit-border-radius: 5px;
@@ -33,8 +33,8 @@
   box-shadow: 0 1px 4px rgba(0,0,0,0.75), inset 0 0 5px 3px #392503;
 
   width: 267px;
-  right: 66px;
-  top: 20px;
+  right: 336px;
+  top: 14px;
   padding: 21px;
   padding-left: 16px;
   position: absolute;
@@ -94,7 +94,7 @@
   background: -o-linear-gradient(top,  #ffffed 0%,#ffff66 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(top,  #ffffed 0%,#ffff66 100%); /* IE10+ */
   background: linear-gradient(to bottom,  #ffffed 0%,#ffff66 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b9aa2e', endColorstr='#d6d054',GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffed', endColorstr='#ffff66',GradientType=0 ); /* IE6-9 */
 }
 #contact-form textarea {
   height: 91px;
@@ -126,7 +126,7 @@
   background: -o-linear-gradient(top,  #fff676 0%,#ffd40b 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(top,  #fff676 0%,#ffd40b 100%); /* IE10+ */
   background: linear-gradient(to bottom,  #fff676 0%,#ffd40b 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b9aa2e', endColorstr='#d6d054',GradientType=0 ); /* IE6-9 */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff676', endColorstr='#ffd40b',GradientType=0 ); /* IE6-9 */
 
   border: 1px solid #8e6b00;
 }

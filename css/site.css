@@ -28,25 +28,27 @@ body {
   background-color: black;
 }
 .shine-overlay {
+  width: inherit;
+  height: inherit;
+  background: inherit;
   opacity: 0;
 
-  -webkit-transition: all 0.05s ease-in;
-  -moz-transition: all 0.05s ease-in;
-  -o-transition: all 0.05s ease-in;
-  transition: all 0.05s ease-in;
+  -webkit-transition: all 0.06s ease-in;
+  -moz-transition: all 0.06s ease-in;
+  -o-transition: all 0.06s ease-in;
+  transition: all 0.06s ease-in;
 
-  -webkit-transition: all 0.1s ease-out;
-  -moz-transition: all 0.1s ease-out;
-  -o-transition: all 0.1s ease-out;
-  transition: all 0.1s ease-out;
+  -webkit-transition: all 0.14s ease-out;
+  -moz-transition: all 0.14s ease-out;
+  -o-transition: all 0.14s ease-out;
+  transition: all 0.14s ease-out;
 }
 .shine-overlay:hover {
   opacity: 1;
 }
-#title,
-#title .shine-overlay {
+#title {
   width: 650px;
-  height: 92px;
+  height: 93px;
   background-image: url('../gfx/title.png');
   margin: 0 auto;
 }
@@ -54,30 +56,55 @@ body {
   background-position: 0 109px;
 }
 #menu {
-  margin-top: 0.25em;
+  height: 50px;
   text-align: center;
 }
 #menu .link,
-#menu .link .shine-overlay {
-  height: 35px;
+#menu .separator {
   background-image: url('../gfx/menu-links.png');
+  display: inline-block;
+}
+#menu .separator {
+  width: 1px;
+  height: 50px;
+  margin: 0 7px;
+}
+#menu .link,
+#menu #social {
+  vertical-align: 50%;
+  display: inline-block;
+}
+#menu .link {
+  height: 29px;
+  cursor: pointer;
+}
+#menu #about {
+  width: 158px;
+  background-position: -2px 0;
+}
+#menu #about .shine-overlay {
+  background-position: -2px -29px;
+}
+#menu #contact {
+  width: 120px;
+  background-position: -158px 0;
+}
+#menu #contact .shine-overlay {
+  background-position: -158px -29px;
+}
+#menu #social {
+  margin-left: 7px;
+}
+#social a {
+  width: 32px;
+  height: 32px;
+  background-image: url('../gfx/social-icons.png');
+  margin-left: 6px;
   cursor: pointer;
   display: inline-block;
 }
-#menu #about {
-  width: 300px;
-}
-#menu #contact {
-  width: 240px;
-  background-position: 240px 0;
-}
-#menu #about .shine-overlay {
-  width: 300px;
-  background-position: 0 35px;
-}
-#menu #contact .shine-overlay {
-  width: 240px;
-  background-position: 240px 35px;
+#social #twitter {
+  background-position: 32px 0;
 }
 #gallery {
   width: 980px;
