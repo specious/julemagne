@@ -69,15 +69,6 @@ function showcaseUpdated( showcase ) {
   $('#art-title').css( 'opacity', 0.5 + (0.5 * c) );
 }
 
-function showcaseUpdated( showcase ) {
-  $('#art-title').html(
-    $(showcase.nearestItem().image).attr('alt')
-  );
-
-  var c = Math.cos((showcase.floatIndex() % 1) * 2 * Math.PI);
-  $('#art-title').css( 'opacity', 0.5 + (0.5 * c) );
-}
-
 function sortByRows( items, rowWidth ) {
   var x = 0;
   var row = 0;
@@ -259,11 +250,39 @@ function infoShow( file, contentId, w, h, onDone ) {
 }
 
 //
+// Keyboard events
+//
+
+function initKeys() {
+  $(document).keydown(function(e) {
+    //
+    // Codes: http://www.javascripter.net/faq/keycodes.htm
+    //
+    switch( e.keyCode ) {
+      /* left arrow */
+      case 37:
+        showcaseMove( '#nav-left' );
+        break;
+
+      /* right arrow */
+      case 39:
+        showcaseMove( '#nav-right' );
+        break;
+
+      /* escape */
+      case 27: 
+        infoWindowClose();
+    }
+  });
+}
+
+//
 // Main
 //
 
 $(function() {
   initShowcase();
+  initKeys();
 
   $('#social a').mouseenter( function() {
     iconAnimate( $(this) );
@@ -272,33 +291,4 @@ $(function() {
   $('#menu #about').click( function() {
     infoShow( 'about.html', '#bio', 267, 82 );
   } );
-});
-
-//
-// Keyboard events
-//
-
-$(document).keydown(function(e) {
-  //
-  // Codes: http://www.javascripter.net/faq/keycodes.htm
-  //
-  switch( e.keyCode ) {
-    /* left arrow */
-    case 37:
-      if( typeof showcaseMove === 'function')
-        showcaseMove( '#nav-left' );
-      break;
-
-    /* right arrow */
-    case 39:
-      if( typeof showcaseMove === 'function')
-        showcaseMove( '#nav-right' );
-      break;
-
-    /* escape */
-    case 27: 
-      if( typeof infoWindowClose === 'function')
-        infoWindowClose();
-      break;
-  }
 });
