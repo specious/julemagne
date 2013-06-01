@@ -130,7 +130,11 @@ function showcaseExpand() {
   var items = showcase.data('cloud9carousel').items;
   var spotX = 0, spotY = 0;
 
-  var rows = sortByRows( items, showcase.width() );
+  // If the viewport is narrow, make gallery narrow
+  var newWidth = Math.min( showcase.width(), $(window).width() );
+  var dX = ~~((showcase.width() - newWidth) * 0.5);
+
+  var rows = sortByRows( items, newWidth );
 
   // Grow the container to accomodate the entire gallery
   showcase.animate(
@@ -146,7 +150,7 @@ function showcaseExpand() {
     var startY = this.y;
     var startScale = this.scale;
 
-    var destX = this.galleryX;
+    var destX = this.galleryX + dX;
     var destY = GALLERY_MARGIN_HEADER + (this.galleryRow * GALLERY_ROW_HEIGHT);
 
     $({ i: 0 }).animate(
