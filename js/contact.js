@@ -5,7 +5,6 @@
  */
 
 var isEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-var submitting = false;
 
 function flashInput( element ) {
   $(element).stop( true ).fadeTo( 160, 0.6 ).fadeTo( 200, 1 );
@@ -46,10 +45,10 @@ function contactFormSubmitEnable( container ) {
       }
     } );
 
-    if( valid && !submitting ) {
+    if( valid && !infoWindowBusy ) {
       var successBox = container.find('#success');
       btnSubmit.attr( 'value', 'Submitting' );
-      submitting = true;
+      infoWindowBusy = true;
 
       $.ajax( {
         url: form.attr('action'),
@@ -67,7 +66,7 @@ function contactFormSubmitEnable( container ) {
             successBox.hide();
             subtitle.show();
             form.show();
-            submitting = false;
+            infoWindowBusy = false;
           } );
         },
         error: function( request, status, httpError ) {
@@ -77,7 +76,7 @@ function contactFormSubmitEnable( container ) {
           setTimeout( function() {
             btnSubmit.removeClass( 'error' );
             btnSubmit.attr( 'value', 'Send' );
-            submitting = false;
+            infoWindowBusy = false;
           }, 1300 );
         }
       } );
@@ -88,32 +87,11 @@ function contactFormSubmitEnable( container ) {
   } );
 }
 
-function contactFormClose() {
-  if( !submitting )
-    $('#contact-form').stop( true ).fadeOut( 400 );
-}
-
-function contactFormShow() {
-  var form = $('#contact-form');
-
-  if( form.length !== 0 ) {
-    form.fadeIn( 600 );
-    form.find('#name').focus();
-  } else {
-    //
-    // Load the contact form, stat!
-    //
-    $.get('contact.html', function( form ) {
-      form = $('#gallery').append( form ).find('#contact-form');
-      form.css('display', 'none');
-
-      form.find('#close').click( contactFormClose );
-      contactFormSubmitEnable( form );
-      contactFormShow();
-    });
-  }
-}
-
 $(function() {
-  $('#contact').click( contactFormShow );
+  $('#contact').click( function() {
+    infoShow( 'contact.html', '#contact-form', 267, 372, function( content ) {
+      content.find('#name').focus();
+      contactFormSubmitEnable( content );
+    } );
+  } );
 });

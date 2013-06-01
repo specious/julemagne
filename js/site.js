@@ -1,12 +1,5 @@
 /* Aloha! */
 
-var GALLERY_MARGIN_HEADER = 32;
-var GALLERY_MARGIN_FOOTER = 12;
-var GALLERY_ITEM_MARGIN_X = 20;
-var GALLERY_ROW_HEIGHT = 330 + 64;
-
-var showcase;
-
 function iconAnimate( icon ) {
   var i, h = icon.height(),
       x = icon.stop( true ).css('background-position').split(' ')[0],
@@ -30,6 +23,17 @@ function iconAnimate( icon ) {
     }
   );
 }
+
+//
+// Showcase & gallery
+//
+
+var GALLERY_MARGIN_HEADER = 32;
+var GALLERY_MARGIN_FOOTER = 12;
+var GALLERY_ITEM_MARGIN_X = 20;
+var GALLERY_ROW_HEIGHT = 394;
+
+var showcase;
 
 function initShowcase() {
   showcase = $("#showcase");
@@ -121,7 +125,7 @@ function showcaseExpand() {
   $('#art-title').fadeOut( 1300 );
   $('#nav-left').animate( {'margin-right': '300px'}, 1300 );
   $('#nav-right').animate( {'margin-left': '344px'}, 1300 );
-  contactFormClose();
+  infoWindowClose();
 
   var items = showcase.data('cloud9carousel').items;
   var spotX = 0, spotY = 0;
@@ -183,15 +187,92 @@ function showcaseMove( buttonId ) {
 }
 
 //
+// Info window
+//
+
+function infoWindowOpen( w, h ) {
+  var win = $('#info-window');
+
+  //
+  // Create the info window if it hasn't been yet
+  //
+  if( win.length === 0 ) {
+    win = $('<div id="info-window"><div id="content"><a id="close" title="Close"></a></div></div>').appendTo('#gallery');
+    win.find('#close').click( infoWindowClose );
+  }
+
+  //
+  // Appear the info window in a fancy fashion
+  //
+  content = win.find( '#content' );
+  content.children('div').hide();
+  content.css( 'bottom', win.css( 'padding-bottom') );
+  win.css( {
+    'width': '0',
+    'height': '0',
+    'margin-left': '0',
+    'opacity': '1',
+    'display': 'block'
+  } );
+  win.stop( true ).animate(
+    { width: w + 'px', 'margin-left': '-' + (w*0.5) + 'px' }, 600,
+    function() {
+      win.animate( { height: h + 'px' }, 600 );
+  } );
+}
+
+var infoWindowBusy = false;
+
+function infoWindowClose() {
+  if( !infoWindowBusy ) {
+    $('#info-window').stop( true ).fadeOut( 400 );
+  }
+}
+
+function infoShow( file, contentId, w, h, onDone ) {
+  infoWindowOpen( w, h );
+  var content = $(contentId);
+
+  function showContent() {
+    content.stop( true ).fadeIn( 1200 );
+
+    if( typeof onDone === 'function' )
+        onDone( content );
+  }
+
+  if( content.length !== 0 ) {
+    showContent();
+  } else {
+    //
+    // Load the contact form, stat!
+    //
+    $.get( file, function( data ) {
+      content = $('#info-window #content').append( data ).find( contentId );
+      content.css('display', 'none');
+      showContent();
+    } );
+  }
+}
+
+//
 // Main
 //
+
 $(function() {
   initShowcase();
 
   $('#social a').mouseenter( function() {
     iconAnimate( $(this) );
   } );
+
+  $('#menu #about').click( function() {
+    infoShow( 'about.html', '#bio', 267, 82 );
+  } );
 });
+
+//
+// Keyboard events
+//
 
 $(document).keydown(function(e) {
   //
@@ -212,8 +293,8 @@ $(document).keydown(function(e) {
 
     /* escape */
     case 27: 
-      if( typeof contactFormClose === 'function')
-        contactFormClose();
+      if( typeof infoWindowClose === 'function')
+        infoWindowClose();
       break;
   }
 });

@@ -175,6 +175,51 @@ body {
 }
 
 /*
+ * Info window
+ */
+
+#info-window {
+  background: #b9aa2e; /* Old browsers */
+  background: -moz-linear-gradient(top,  #d1a633 0%, #ffe673 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d1a633), color-stop(100%,#ffe673)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #d1a633 0%,#ffe673 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #d1a633 0%,#ffe673 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #d1a633 0%,#ffe673 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #d1a633 0%,#ffe673 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1a633', endColorstr='#ffe673',GradientType=0 ); /* IE6-9 */
+
+  border: 1px solid #f1da36;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.75), inset 0 0 5px 3px #392503;
+  -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.75), inset 0 0 5px 3px #392503;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.75), inset 0 0 5px 3px #392503;
+
+  min-height: 10px;
+  top: 10px;
+  left: 50%;
+  padding: 21px;
+  padding-left: 16px;
+  position: absolute;
+  z-index: 9999;
+}
+#info-window #content {
+  position: absolute;
+  bottom: 0;
+}
+#info-window #close {
+  width: 21px;
+  height: 21px;
+  background: url('../gfx/box-close.png');
+  top: -9px;
+  right: -9px;
+  cursor: pointer;
+  display: block;
+  position: absolute;
+}
+
+/*
  * glass button adapted from: http://codepen.io/raad/details/EzFAv
  */
 

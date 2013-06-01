@@ -1,0 +1,30 @@
+@font-face {
+  /* source: http://www.fontsquirrel.com/fonts/Carrington */
+  font-family: 'CarringtonRegular';
+  src: url('../fonts/Carrington-webfont.eot');
+  src: url('../fonts/Carrington-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Carrington-webfont.woff') format('woff'),
+       url('../fonts/Carrington-webfont.ttf') format('truetype'),
+       url('../fonts/Carrington-webfont.svg#CarringtonRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+#bio {
+  width: 100%;
+  min-width: 260px;
+}
+#bio h1 {
+  color: black;
+  font-family: 'KaushanScriptRegular';
+  font-size: 26px;
+  margin-top: 0.2em;
+  margin-bottom: 0.4em;
+  margin-left: -0.134em; /* correct for font letter drift */
+}
+#bio h2 {
+  color: black;
+  font: 14px/1.5 Arial,sans-serif;
+  font-style: italic;
+  margin-top: 0;
+  margin-bottom: 0.6em;
+}
