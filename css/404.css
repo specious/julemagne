@@ -1,0 +1,87 @@
+@font-face {
+  /* source: http://www.fontsquirrel.com/fonts/Carrington */
+  font-family: 'CarringtonRegular';
+  src: url('../fonts/Carrington-webfont.eot');
+  src: url('../fonts/Carrington-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Carrington-webfont.woff') format('woff'),
+       url('../fonts/Carrington-webfont.ttf') format('truetype'),
+       url('../fonts/Carrington-webfont.svg#CarringtonRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+	background-color: black;
+	color: #eee;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+::-moz-selection {
+	background-color: black;
+}
+::selection {
+	background-color: black;
+}
+#content {
+  top: 20%;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+}
+#author, .epithet {
+	color: rgba(253, 244, 52, 0.83);
+	text-shadow: 2px 3px 6px #555;
+	font-family: 'CarringtonRegular';
+	font-size: 54px;
+	letter-spacing: 0.13em;
+	text-align: center;
+}
+#author > .initial,
+#author > .letter:hover {
+  color: #FFF51C;
+  text-shadow: 2px 3px 6px #84834A;
+  cursor: pointer;
+}
+#author > .letter,
+#portrait {
+  -webkit-transition: all 0.05s ease-in;
+  -moz-transition: all 0.05s ease-in;
+  -o-transition: all 0.05s ease-in;
+  transition: all 0.05s ease-in;
+
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  -o-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
+}
+.epithet {
+  font-family: none;
+  font-style: oblique;
+  font-size: 20px;
+}
+h2.epithet {
+  font-size: 30px;
+}
+hr {
+  border-color: #191919;
+  width: 45%;
+  margin-top: 6px;
+}
+#portrait {
+  margin: 0 auto;
+  display: block;
+}
+#portrait:hover {
+  -webkit-box-shadow: 0 1px 7px 8px rgba(253, 244, 52, 0.7);
+  -moz-box-shadow: 0 1px 7px 8px rgba(253, 244, 52, 0.7);
+  box-shadow: 0 1px 7px 8px rgba(253, 244, 52, 0.7);
+  cursor: pointer;
+}
