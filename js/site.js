@@ -31,7 +31,7 @@ function iconAnimate( icon ) {
 var GALLERY_MARGIN_HEADER = 32;
 var GALLERY_MARGIN_FOOTER = 12;
 var GALLERY_ITEM_MARGIN_X = 20;
-var GALLERY_ROW_HEIGHT = 394;
+var GALLERY_ROW_HEIGHT = 404;
 
 var showcase;
 
@@ -39,25 +39,28 @@ function initShowcase() {
   showcase = $("#showcase");
 
   showcase.Cloud9Carousel({
-    xPos: 980 / 2,
+    xPos: showcase.width() / 2,
     yPos: 50,
-    yRadius: 480 / 10,
-    reflHeight: 56,
-    reflGap: 2,
+    yRadius: 48,
+    mirrorOptions: {
+      gap: 3,
+      height: 0.23
+    },
     speed: 0.18,
     buttonLeft: $("#nav-left"),
     buttonRight: $("#nav-right"),
-    onUpdated: showcaseUpdated
+    onUpdated: showcaseUpdated,
+    onLoaded: function() {
+      showcase.css('visibility', 'visible');
+      showcase.css('display', 'none');
+      showcase.fadeIn( 1500, function() {
+        $('#expand > button').click( showcaseExpand );
+      } );
+    }
   });
 
   // CloudCarousel messes it up on init
   $(".nav-button").css('display', 'inline-block');
-
-  showcase.css('visibility', 'visible');
-  showcase.css('display', 'none');
-  showcase.fadeIn( 1500, function() {
-    $('#expand > button').click( showcaseExpand );
-  } );
 }
 
 function showcaseUpdated( showcase ) {
@@ -76,7 +79,7 @@ function sortByRows( items, rowWidth ) {
   var rowFree = rowWidth;
 
   $(items).each( function() {
-    var w = this.galleryWidth = this.orgWidth + (2 * GALLERY_ITEM_MARGIN_X);
+    var w = this.galleryWidth = this.fullWidth + (2 * GALLERY_ITEM_MARGIN_X);
 
     if( rowFree - w < 0 && rowItems.length != 0 ) {
       row++;
@@ -88,7 +91,7 @@ function sortByRows( items, rowWidth ) {
 
     // Place the left edge of the new item based on total space and how much
     // is already taken
-    this.galleryX = rowWidth - (rowFree / 2) - (this.orgWidth / 2);
+    this.galleryX = rowWidth - (rowFree / 2) - (this.fullWidth / 2);
 
     // Shift items already in the row to accommodate the new one
     if( rowItems.length != 0 ) {
@@ -155,12 +158,16 @@ function showcaseExpand() {
           );
         },
         complete: function() {
-          artInfo = $(item.div).append( '<p class="art-info">' + item.alt + '</p>' );
+          var container = $(item.image.parentNode).addClass( 'gallery-item' );
+          container.css( 'height', 'auto' );
 
-          $(item.div).hover( function() {
-            $(item.div).find('.art-info').fadeTo( 200, 1 );
+          artInfo = container.append( '<p class="art-info">' + item.alt + '</p>' );
+          container.addClass( 'gallery-item' );
+
+          container.hover( function() {
+            container.find('.art-info').fadeTo( 200, 1 );
           }, function() {
-            $(item.div).find('.art-info').fadeTo( 200, 0.8 );
+            container.find('.art-info').fadeTo( 200, 0.8 );
           } );
         }
       }
@@ -170,13 +177,13 @@ function showcaseExpand() {
 
 function showcaseMove( buttonId ) {
   // Trigger button "click" and get button highlight overlay
-  var hi = $( buttonId ).mouseup().find( '.shine-overlay' );
+  var hi = $( buttonId ).click().find( '.shine-overlay' );
 
   // Flash button highlight
-  hi.stop();
+  hi.stop( true );
   hi.css( 'opacity', '0' );
   hi.css( 'display', 'block' );
-  hi.animate( {'opacity': '0.5'}, 100, 'swing', function() {
+  hi.animate( {'opacity': '0.7'}, 80, 'swing', function() {
     hi.animate( {'opacity': '0'}, 160, 'swing' );
   } );
 }
@@ -261,12 +268,12 @@ function initKeys() {
     switch( e.keyCode ) {
       /* left arrow */
       case 37:
-        showcaseMove( '#nav-left' );
+        showcaseMove && showcaseMove( '#nav-left' );
         break;
 
       /* right arrow */
       case 39:
-        showcaseMove( '#nav-right' );
+        showcaseMove && showcaseMove( '#nav-right' );
         break;
 
       /* escape */
