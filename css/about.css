@@ -1,11 +1,11 @@
 @font-face {
-  /* source: http://www.fontsquirrel.com/fonts/Carrington */
-  font-family: 'CarringtonRegular';
-  src: url('../fonts/Carrington-webfont.eot');
-  src: url('../fonts/Carrington-webfont.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/Carrington-webfont.woff') format('woff'),
-       url('../fonts/Carrington-webfont.ttf') format('truetype'),
-       url('../fonts/Carrington-webfont.svg#CarringtonRegular') format('svg');
+  /* source: http://www.fontsquirrel.com/fonts/kaushan-script */
+  font-family: 'KaushanScriptRegular';
+  src: url('../fonts/KaushanScript-Regular-webfont.eot');
+  src: url('../fonts/KaushanScript-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/KaushanScript-Regular-webfont.woff') format('woff'),
+       url('../fonts/KaushanScript-Regular-webfont.ttf') format('truetype'),
+       url('../fonts/KaushanScript-Regular-webfont.svg#KaushanScriptRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
