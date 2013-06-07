@@ -25,13 +25,13 @@ function iconAnimate( icon ) {
 }
 
 //
-// Showcase & gallery
+// Carousel showcase
 //
 
-var GALLERY_MARGIN_HEADER = 32;
-var GALLERY_MARGIN_FOOTER = 12;
-var GALLERY_ITEM_MARGIN_X = 20;
-var GALLERY_ROW_HEIGHT = 404;
+var mirrorOpts = {
+  gap: 3,
+  height: 0.23
+};
 
 var showcase;
 
@@ -42,10 +42,7 @@ function initShowcase() {
     xPos: showcase.width() / 2,
     yPos: 50,
     yRadius: 48,
-    mirrorOptions: {
-      gap: 3,
-      height: 0.23
-    },
+    mirrorOptions: mirrorOpts,
     speed: 0.18,
     buttonLeft: $("#nav-left"),
     buttonRight: $("#nav-right"),
@@ -72,6 +69,49 @@ function showcaseUpdated( showcase ) {
   $('#art-title').css( 'opacity', 0.5 + (0.5 * c) );
 }
 
+function showcaseMove( buttonId ) {
+  // Trigger button "click" and get button highlight overlay
+  var hi = $( buttonId ).click().find( '.shine-overlay' );
+
+  // Flash button highlight
+  hi.stop( true );
+  hi.css( 'opacity', '0' );
+  hi.css( 'display', 'block' );
+  hi.animate( {'opacity': '0.7'}, 80, 'swing', function() {
+    hi.animate( {'opacity': '0'}, 160, 'swing' );
+  } );
+}
+
+//
+// Expanded gallery
+//
+
+var GALLERY_MARGIN_HEADER = 32;
+var GALLERY_MARGIN_FOOTER = 0;
+var GALLERY_ITEM_MARGIN_X = 20;
+var GALLERY_ROW_HEIGHT = 420;
+
+var gallery = {
+  rows: 0,
+  height: GALLERY_MARGIN_HEADER + GALLERY_MARGIN_FOOTER,
+  addRows: function( rows ) {
+    this.rows += rows;
+    this.height += rows * GALLERY_ROW_HEIGHT
+  },
+  grow: function( time ) {
+    // Grow the container to accommodate the gallery
+    showcase.stop().animate( { height: this.height }, time );
+  },
+  rowY: function( rowNum ) {
+    return GALLERY_MARGIN_HEADER + (rowNum * GALLERY_ROW_HEIGHT)
+  },
+  initSize: function() {
+    // If the viewport is narrow, make gallery narrow
+    this.width = Math.min( showcase.width(), $(window).width() );
+    this.xOffset = ~~((showcase.width() - this.width) * 0.5);
+  }
+}
+
 function sortByRows( items, rowWidth ) {
   var x = 0;
   var row = 0;
@@ -79,7 +119,9 @@ function sortByRows( items, rowWidth ) {
   var rowFree = rowWidth;
 
   $(items).each( function() {
-    var w = this.galleryWidth = this.fullWidth + (2 * GALLERY_ITEM_MARGIN_X);
+    this.fullWidth = this.fullWidth || $(this).width();
+
+    var w = this.fullWidth + (2 * GALLERY_ITEM_MARGIN_X);
 
     if( rowFree - w < 0 && rowItems.length != 0 ) {
       row++;
@@ -107,13 +149,62 @@ function sortByRows( items, rowWidth ) {
   return row + 1;
 }
 
+function itemAddInfo( item ) {
+  item = $(item).addClass( 'gallery-item' );
+  item.css( 'height', 'auto' );
+
+  item.append( '<p class="art-info">' + item.find('img').attr('alt') + '</p>' );
+  item.addClass( 'gallery-item' );
+
+  item.hover( function() {
+    item.find('.art-info').fadeTo( 200, 1 );
+  }, function() {
+    item.find('.art-info').fadeTo( 200, 0.8 );
+  } );
+}
+
+// Create gallery item from an image the same way Cloud9Carousel does
+function galleryItemCreate( item ) {
+  var reflection = $( $(item).reflect(mirrorOpts) ).next()[0];
+  $(reflection).css('margin-top', mirrorOpts.gap + 'px');
+  $(reflection).css('width', '100%');
+  $(item).css('width', '100%');
+
+  return $(item).parent();
+}
+
+function loadMoreGallery( file ) {
+  $.get( file, function( data ) {
+    var items = [];
+
+    $(data).filter('img').each( function() {
+      var item = galleryItemCreate( this );
+      itemAddInfo( item );
+      items.push( item );
+    });
+
+    var prevRows = gallery.rows;
+    gallery.addRows( sortByRows( items, gallery.width ) );
+    gallery.grow( 2000 );
+
+    for( var i in items ) {
+      var item = items[i];
+      $(item).css('position','absolute');
+      $(item).css('left', item.galleryX + gallery.xOffset + 'px');
+      $(item).css('top', gallery.rowY( prevRows + item.galleryRow ) + 'px');
+      $('#showcase').children().first().append( item );
+    }
+  } );
+}
+
 function showcaseExpand() {
-  // Turn off carousel controls
+  // Disable carousel controls
   showcaseMove = null;
 
   // Halt carousel
   showcase.data('cloud9carousel').stop();
 
+  // Get carousel navigation items out of the way
   $('#expand').fadeOut( 1300 );
   $('#nav-buttons').fadeOut( 1300 );
   $('#art-title').fadeOut( 1300 );
@@ -122,21 +213,10 @@ function showcaseExpand() {
   infoWindowClose();
 
   var items = showcase.data('cloud9carousel').items;
-  var spotX = 0, spotY = 0;
 
-  // If the viewport is narrow, make gallery narrow
-  var newWidth = Math.min( showcase.width(), $(window).width() );
-  var dX = ~~((showcase.width() - newWidth) * 0.5);
-
-  var rows = sortByRows( items, newWidth );
-
-  // Grow the container to accomodate the entire gallery
-  showcase.animate(
-    { height: GALLERY_MARGIN_HEADER
-                + (rows * GALLERY_ROW_HEIGHT)
-                + GALLERY_MARGIN_FOOTER + 'px' },
-    2000
-  );
+  gallery.initSize();
+  gallery.addRows( sortByRows( items, gallery.width ) );
+  gallery.grow();
 
   $(items).each( function() {
     var item = this;
@@ -144,8 +224,8 @@ function showcaseExpand() {
     var startY = this.y;
     var startScale = this.scale;
 
-    var destX = this.galleryX + dX;
-    var destY = GALLERY_MARGIN_HEADER + (this.galleryRow * GALLERY_ROW_HEIGHT);
+    var destX = this.galleryX + gallery.xOffset;
+    var destY = gallery.rowY( this.galleryRow );
 
     $({ i: 0 }).animate(
       { i: 2000 }, {
@@ -158,34 +238,13 @@ function showcaseExpand() {
           );
         },
         complete: function() {
-          var container = $(item.image.parentNode).addClass( 'gallery-item' );
-          container.css( 'height', 'auto' );
-
-          artInfo = container.append( '<p class="art-info">' + item.alt + '</p>' );
-          container.addClass( 'gallery-item' );
-
-          container.hover( function() {
-            container.find('.art-info').fadeTo( 200, 1 );
-          }, function() {
-            container.find('.art-info').fadeTo( 200, 0.8 );
-          } );
+          itemAddInfo( item.image.parentNode );
         }
       }
     );
   });
-}
 
-function showcaseMove( buttonId ) {
-  // Trigger button "click" and get button highlight overlay
-  var hi = $( buttonId ).click().find( '.shine-overlay' );
-
-  // Flash button highlight
-  hi.stop( true );
-  hi.css( 'opacity', '0' );
-  hi.css( 'display', 'block' );
-  hi.animate( {'opacity': '0.7'}, 80, 'swing', function() {
-    hi.animate( {'opacity': '0'}, 160, 'swing' );
-  } );
+  loadMoreGallery( 'gallery.html' );
 }
 
 //
