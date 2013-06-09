@@ -87,11 +87,13 @@ function contactFormSubmitEnable( container ) {
   } );
 }
 
-$(function() {
-  $('#contact').click( function() {
-    infoShow( 'contact.html', '#contact-form', 267, 372, function( content ) {
-      content.find('#name').focus();
-      contactFormSubmitEnable( content );
-    } );
+function contactFormShow() {
+  infoShow( 'contact.html', '#contact-form', 267, 362, function( content ) {
+    content.find('#name').focus();
+    contactFormSubmitEnable( content );
   } );
+}
+
+$(function() {
+  $('#contact').click( contactFormShow );
 });

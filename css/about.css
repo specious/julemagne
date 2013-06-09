@@ -11,7 +11,11 @@
 }
 #bio {
   width: 100%;
-  min-width: 260px;
+  margin-right: 19px;
+  text-align: justify;
+}
+#bio a {
+  font-weight: bold;
 }
 #bio h1 {
   color: black;

@@ -233,6 +233,7 @@ body {
   z-index: 9999;
 }
 #info-window #content {
+  margin-right: 19px;
   position: absolute;
   bottom: 0;
 }
@@ -241,10 +242,44 @@ body {
   height: 21px;
   background: url('../gfx/box-close.png');
   top: -9px;
-  right: -9px;
+  right: -8px;
   cursor: pointer;
   display: block;
   position: absolute;
+}
+.form-button {
+  width: 100px;
+  height: 23px;
+  background-color: #392503;
+  color: #FFF;
+  border: none;
+  display: block;
+  margin-bottom: 0;
+  margin-right: 6px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.form-button:hover {
+  color: #000;
+  background: #b9aa2e; /* Old browsers */
+  background: -moz-linear-gradient(top, #fff676 0%, #ffd40b 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff676), color-stop(100%,#ffd40b)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #fff676 0%, #ffd40b 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #fff676 0%, #ffd40b 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #fff676 0%, #ffd40b 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #fff676 0%, #ffd40b 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff676', endColorstr='#ffd40b', GradientType=0 ); /* IE6-9 */
+
+  border: 1px solid #8e6b00;
+}
+.form-button:active {
+  position: relative;
+  top: 1px;
+}
+.form-button:focus {
+  color: #000;
 }
 
 /*

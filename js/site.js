@@ -216,7 +216,7 @@ function loadMoreGallery( file ) {
           }
         }
       } ).each( function() {
-        //Cache fix for browsers that don't trigger .load()
+        // Cache fix for browsers that don't trigger .load()
         if( this.complete )
           $(this).trigger( 'load' );
       } );
@@ -285,9 +285,11 @@ function infoWindowOpen( w, h ) {
   // Create the info window if it hasn't been yet
   //
   if( win.length === 0 ) {
-    win = $('<div id="info-window"><div id="content"><a id="close" title="Close"></a></div></div>').appendTo('#gallery');
+    win = $('<div id="info-window"><div id="content"></div><a id="close" title="Close"></a></div>').appendTo('#gallery');
     win.find('#close').click( infoWindowClose );
   }
+
+  var closeButton = win.find( '#close' ).css( 'display', 'none' );
 
   //
   // Appear the info window in a fancy fashion
@@ -305,7 +307,9 @@ function infoWindowOpen( w, h ) {
   win.stop( true ).animate(
     { width: w + 'px', 'margin-left': '-' + (w*0.5) + 'px' }, 600,
     function() {
-      win.animate( { height: h + 'px' }, 600 );
+      win.animate( { height: h + 'px' }, 600, function() {
+        closeButton.fadeIn( 200 );
+      } );
   } );
 }
 
@@ -382,6 +386,6 @@ $(function() {
   } );
 
   $('#menu #about').click( function() {
-    infoShow( 'about.html', '#bio', 267, 82 );
+    infoShow( 'about.html', '#bio', 488, 200 );
   } );
 });

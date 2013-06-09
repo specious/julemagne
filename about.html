@@ -1,6 +1,12 @@
 <link rel="stylesheet" href="css/about.css">
 <div id="bio">
   <h1>About me</h1>
-  <h2>I make surprising, surreal artwork.  I express my personal life experiences by painting self-portraits.  Birds and other animals have fascinated me all my life and I use them in my paintings because they evoke intense emotions in me.   I hope you are intrigued by my paintings.  Feel free to contact me if you would like to learn more about my artwork or if you are interested in commissioning custom work!
-</h2>
+  <h2>
+    I make surprising, surreal artwork.  I express my personal life experiences by painting self-portraits.  Birds and other animals have fascinated me all my life and I use them in my paintings because they evoke intense emotions in me.  I hope you are intrigued by my paintings.  Please <a id="link-contact" href="#contact">contact me</a> if you would like to learn more about my artwork or if you are interested in commissioning custom work!
+  </h2>
+  <button id="about-close" class="form-button">Close</button>
 </div>
+<script>
+  $('#link-contact').click( contactFormShow );
+  $('#about-close').click( infoWindowClose )
+</script>
