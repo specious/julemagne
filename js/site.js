@@ -53,6 +53,10 @@ function initShowcase() {
       showcase.fadeIn( 1500, function() {
         $('#expand > button').one( 'click', showcaseExpand );
       } );
+
+      setTimeout( function () {
+        $('#expand > button').animate( { opacity: 1 }, 800 );
+      }, 700 );
     }
   });
 

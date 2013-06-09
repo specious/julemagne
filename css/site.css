@@ -203,6 +203,7 @@ body {
   font-size: 27px;
   text-shadow: 1px 1px 5px #555;
   letter-spacing: 0.1em;
+  opacity: 0;
 }
 #footer {
   color: rgb(253, 244, 52);
