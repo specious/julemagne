@@ -156,7 +156,8 @@ body {
   text-align: center;
 }
 .nav-button {
-  display:inline-block;
+  display: inline-block;
+  position: relative;
 }
 .nav-button,
 .nav-button .shine-overlay {
@@ -165,19 +166,31 @@ body {
   background-image: url('../gfx/arrows.png');
   cursor: pointer;
 }
+.nav-button .blink-overlay {
+  width: inherit;
+  height: inherit;
+  background: inherit;
+  opacity: 0;
+  top: 0;
+  position: absolute;
+  z-index: -1;
+}
+.nav-button .shine-overlay:hover {
+  opacity: 0.7;
+}
 #nav-left {
   margin-right: 4px;
 }
-#nav-left:hover,
-#nav-left .shine-overlay {
+#nav-left .shine-overlay,
+#nav-left .blink-overlay {
   background-position: 0 62px;
 }
 #nav-right {
   background-position: 80px 0px;
   margin-left: 4px;
 }
-#nav-right:hover,
-#nav-right .shine-overlay {
+#nav-right .shine-overlay,
+#nav-right .blink-overlay {
   background-position: 80px 62px;
 }
 #expand {

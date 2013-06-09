@@ -56,8 +56,11 @@ function initShowcase() {
     }
   });
 
-  // CloudCarousel messes it up on init
-  $(".nav-button").css('display', 'inline-block');
+  // Carousel init messes up arrow buttons' 'display'
+  $('.nav-button').css('display', 'inline-block');
+  $('.nav-button').click( showcaseArrowClicked );
+
+  showcase.live = true;
 }
 
 function showcaseUpdated( showcase ) {
@@ -69,12 +72,11 @@ function showcaseUpdated( showcase ) {
   $('#art-title').css( 'opacity', 0.5 + (0.5 * c) );
 }
 
-function showcaseMove( buttonId ) {
-  // Trigger button "click" and get button highlight overlay
-  var hi = $( buttonId ).click().find( '.shine-overlay' );
+function showcaseArrowClicked( event ) {
+  var hi = $( event.target ).closest( '.nav-button' ).find( '.blink-overlay' );
 
   // Flash button highlight
-  hi.stop( true );
+  hi.stop();
   hi.css( 'opacity', '0' );
   hi.css( 'display', 'block' );
   hi.animate( {'opacity': '0.7'}, 80, 'swing', function() {
@@ -226,7 +228,7 @@ function loadMoreGallery( file ) {
 
 function showcaseExpand() {
   // Disable carousel controls
-  showcaseMove = null;
+  showcase.live = false;
 
   // Halt carousel
   showcase.data('cloud9carousel').stop();
@@ -336,7 +338,7 @@ function infoShow( file, contentId, w, h, onDone ) {
     showContent();
   } else {
     //
-    // Load the contact form, stat!
+    // Load the content, stat!
     //
     $.get( file, function( data ) {
       content = $('#info-window #content').append( data ).find( contentId );
@@ -358,12 +360,12 @@ function initKeys() {
     switch( e.keyCode ) {
       /* left arrow */
       case 37:
-        showcaseMove && showcaseMove( '#nav-left' );
+        showcase.live && $('#nav-left').click();
         break;
 
       /* right arrow */
       case 39:
-        showcaseMove && showcaseMove( '#nav-right' );
+        showcase.live && $('#nav-right').click();
         break;
 
       /* escape */
