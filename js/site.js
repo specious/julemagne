@@ -51,7 +51,7 @@ function initShowcase() {
       showcase.css('visibility', 'visible');
       showcase.css('display', 'none');
       showcase.fadeIn( 1500, function() {
-        $('#expand > button').click( showcaseExpand );
+        $('#expand > button').one( 'click', showcaseExpand );
       } );
     }
   });
@@ -100,7 +100,7 @@ var gallery = {
   },
   grow: function( time ) {
     // Grow the container to accommodate the gallery
-    showcase.stop().animate( { height: this.height }, time );
+    showcase.stop( true ).animate( { height: this.height }, time );
   },
   rowY: function( rowNum ) {
     return GALLERY_MARGIN_HEADER + (rowNum * GALLERY_ROW_HEIGHT)
@@ -164,35 +164,62 @@ function itemAddInfo( item ) {
 }
 
 // Create gallery item from an image the same way Cloud9Carousel does
-function galleryItemCreate( item ) {
-  var reflection = $( $(item).reflect(mirrorOpts) ).next()[0];
+function galleryItemCreate( img ) {
+  var reflection = $( $(img).reflect(mirrorOpts) ).next()[0];
   $(reflection).css('margin-top', mirrorOpts.gap + 'px');
   $(reflection).css('width', '100%');
-  $(item).css('width', '100%');
+  $(img).css('width', '100%');
 
-  return $(item).parent();
+  // reflect() wrapped the image in a container element
+  var item = $(img).parent();
+
+  // Save a reference to the main image
+  item.img = img;
+
+  return item;
 }
 
 function loadMoreGallery( file ) {
-  $.get( file, function( data ) {
+  $.get( file ).done( function( data ) {
     var items = [];
 
+    // Add images to the DOM
     $(data).filter('img').each( function() {
-      var item = galleryItemCreate( this );
-      itemAddInfo( item );
-      items.push( item );
+      $('#showcase').children().first().append( this );
+      $(this).css( 'visibility', 'hidden' );
+      items.push( this );
     });
 
-    var prevRows = gallery.rows;
-    gallery.addRows( sortByRows( items, gallery.width ) );
-    gallery.grow( 2000 );
+    var count = items.length;
 
+    // Wait until images are fully loaded...
     for( var i in items ) {
-      var item = items[i];
-      $(item).css('position','absolute');
-      $(item).css('left', item.galleryX + gallery.xOffset + 'px');
-      $(item).css('top', gallery.rowY( prevRows + item.galleryRow ) + 'px');
-      $('#showcase').children().first().append( item );
+      $(items[i]).one( 'load', function() {
+        if( --count == 0 ) {
+          for( var i in items ) {
+            var item = items[i] = galleryItemCreate( items[i] );
+            itemAddInfo( item );
+          }
+
+          var prevRows = gallery.rows;
+          gallery.addRows( sortByRows( items, gallery.width ) );
+          gallery.grow( 2000 );
+
+          for( var i in items ) {
+            var item = items[i];
+            $(item).css( {
+              'position': 'absolute',
+              'visibility': 'visible',
+              'left': item.galleryX + gallery.xOffset + 'px',
+              'top': gallery.rowY( prevRows + item.galleryRow ) + 'px'
+            } );
+          }
+        }
+      } ).each( function() {
+        //Cache fix for browsers that don't trigger .load()
+        if( this.complete )
+          $(this).trigger( 'load' );
+      } );
     }
   } );
 }
