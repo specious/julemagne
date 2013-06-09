@@ -71,6 +71,9 @@
 #contact-form label {
   display:block;
 }
+#contact-form #submit {
+  width: 100px;
+}
 #contact-form #submit.error {
   color: white;
   background-color: red;
