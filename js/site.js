@@ -42,10 +42,11 @@ function initShowcase() {
     xPos: showcase.width() / 2,
     yPos: 50,
     yRadius: 48,
-    mirrorOptions: mirrorOpts,
     speed: 0.18,
+    mirrorOptions: mirrorOpts,
     buttonLeft: $("#nav-left"),
     buttonRight: $("#nav-right"),
+    bringToFront: true,
     onUpdated: showcaseUpdated,
     onLoaded: function() {
       showcase.css('visibility', 'visible');
@@ -63,8 +64,6 @@ function initShowcase() {
   // Carousel init messes up arrow buttons' 'display'
   $('.nav-button').css('display', 'inline-block');
   $('.nav-button').click( showcaseArrowClicked );
-
-  showcase.live = true;
 }
 
 function showcaseUpdated( showcase ) {
@@ -231,11 +230,8 @@ function loadMoreGallery( file ) {
 }
 
 function showcaseExpand() {
-  // Disable carousel controls
-  showcase.live = false;
-
-  // Halt carousel
-  showcase.data('cloud9carousel').stop();
+  // Disable carousel operation
+  showcase.data('cloud9carousel').halt();
 
   // Get carousel navigation items out of the way
   $('#expand').fadeOut( 1300 );
@@ -256,6 +252,9 @@ function showcaseExpand() {
     var startX = this.x;
     var startY = this.y;
     var startScale = this.scale;
+    var itemContainer = item.image.parentNode;
+
+    $(itemContainer).removeClass( 'cloud9-item' );
 
     var destX = this.galleryX + gallery.xOffset;
     var destY = gallery.rowY( this.galleryRow );
@@ -271,7 +270,7 @@ function showcaseExpand() {
           );
         },
         complete: function() {
-          itemAddInfo( item.image.parentNode );
+          itemAddInfo( itemContainer );
         }
       }
     );
@@ -364,12 +363,12 @@ function initKeys() {
     switch( e.keyCode ) {
       /* left arrow */
       case 37:
-        showcase.live && $('#nav-left').click();
+        $('#nav-left').click();
         break;
 
       /* right arrow */
       case 39:
-        showcase.live && $('#nav-right').click();
+        $('#nav-right').click();
         break;
 
       /* escape */

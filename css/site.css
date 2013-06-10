@@ -135,6 +135,9 @@ body {
   overflow: visible;
   visibility: hidden;
 }
+.cloud9-item {
+  cursor: pointer;
+}
 #art-title,
 .art-info {
   color: #cecece;
