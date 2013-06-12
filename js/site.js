@@ -128,7 +128,7 @@ function sortByRows( items, rowWidth ) {
 
     var w = this.fullWidth + (2 * GALLERY_ITEM_MARGIN_X);
 
-    if( rowFree - w < 0 && rowItems.length != 0 ) {
+    if( rowFree - w < 0 && rowItems.length !== 0 ) {
       row++;
       rowItems = [];
       rowFree = rowWidth;
@@ -141,7 +141,7 @@ function sortByRows( items, rowWidth ) {
     this.galleryX = rowWidth - (rowFree / 2) - (this.fullWidth / 2);
 
     // Shift items already in the row to accommodate the new one
-    if( rowItems.length != 0 ) {
+    if( rowItems.length !== 0 ) {
       $(rowItems).each( function() {
         this.galleryX -= w / 2;
       } )
@@ -200,7 +200,7 @@ function loadMoreGallery( file ) {
     // Wait until images are fully loaded...
     for( var i in items ) {
       $(items[i]).one( 'load', function() {
-        if( --count == 0 ) {
+        if( --count === 0 ) {
           for( var i in items ) {
             var item = items[i] = galleryItemCreate( items[i] );
             itemAddInfo( item );
@@ -210,8 +210,8 @@ function loadMoreGallery( file ) {
           gallery.addRows( sortByRows( items, gallery.width ) );
           gallery.grow( 2000 );
 
-          for( var i in items ) {
-            var item = items[i];
+          for( i in items ) {
+            item = items[i];
             $(item).css( {
               'position': 'absolute',
               'visibility': 'visible',
@@ -299,7 +299,7 @@ function infoWindowOpen( w, h ) {
   //
   // Appear the info window in a fancy fashion
   //
-  content = win.find( '#content' );
+  var content = win.find( '#content' );
   content.children('div').hide();
   content.css( 'bottom', win.css( 'padding-bottom') );
   win.css( {
