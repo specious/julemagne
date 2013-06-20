@@ -361,6 +361,32 @@ function infoShow( file, contentId, w, h, onDone ) {
 }
 
 //
+// Share on FB | Twitter | G+
+//
+
+function shareTabInit() {
+  var share = $('#share').click( function() {
+    if( !share.hasClass( 'open' ) ) {
+      share.addClass( 'open' );
+      share.animate( { 'margin-right': '-6px' }, 800 );
+    }
+  } );
+
+  function shareTabClose() {
+    if( share.hasClass( 'open' ) && !share.closing ) {
+      share.closing = true;
+      share.stop( true ).animate( { 'margin-right': '-112px' }, 400, function() {
+        share.closing = false;
+        share.removeClass( 'open' );
+      } );
+    }
+  }
+
+  $(window).scroll( shareTabClose );
+  $('.nav-button').click( shareTabClose );
+}
+
+//
 // Keyboard events
 //
 
@@ -402,4 +428,6 @@ $(function() {
   $('#menu #about').click( function() {
     infoShow( 'about.html', '#bio', 488, 200 );
   } );
+
+  shareTabInit();
 });
