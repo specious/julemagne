@@ -21,6 +21,7 @@
   color: black;
   font-family: 'KaushanScriptRegular';
   font-size: 26px;
+  font-weight: normal;
   margin-top: 0.2em;
   margin-bottom: 0.4em;
   margin-left: -0.134em; /* correct for font letter drift */

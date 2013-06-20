@@ -22,6 +22,7 @@
   color: black;
   font-family: 'KaushanScriptRegular';
   font-size: 26px;
+  font-weight: normal;
   margin-top: 0.2em;
   margin-bottom: 0.4em;
   margin-left: -0.134em; /* correct for font letter drift */
@@ -37,42 +38,34 @@
   color: black;
   font-size: 14px;
 }
-#contact-form input,
-#contact-form select,
-#contact-form textarea {
-  font-size: 12px;
-  margin-bottom: 2px;
-}
-#contact-form input,
+#contact-form input:not([type="submit"]),
 #contact-form select,
 #contact-form textarea {
   width: 98%;
-  border: 1px solid #fff9db;
+  background-color: #a8a824;
+  border: 1px solid #111110;
+  font-size: 12px;
   margin-bottom: 5px;
   padding: 4px;
 }
-#contact-form input:focus,
+#contact-form select {
+  width: 102%; /* override */
+}
+#contact-form select option {
+  background-color: #f6f637;
+}
+#contact-form input:not([type="submit"]):focus,
 #contact-form select:focus,
 #contact-form textarea:focus {
-  border: 1px solid #ffff66;
-  background: #ffffed; /* Old browsers */
-  background: -moz-linear-gradient(top,  #ffffed 0%, #ffff66 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffed), color-stop(100%,#ffff66)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  #ffffed 0%,#ffff66 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  #ffffed 0%,#ffff66 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  #ffffed 0%,#ffff66 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  #ffffed 0%,#ffff66 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffed', endColorstr='#ffff66',GradientType=0 ); /* IE6-9 */
+  background: #d1d10a;
+  border: 1px solid #505011;
 }
 #contact-form textarea {
   height: 91px;
   resize: none;
 }
 #contact-form label {
-  display:block;
-}
-#contact-form #submit {
-  width: 100px;
+  display: block;
 }
 #contact-form #submit.error {
   color: white;
@@ -102,18 +95,21 @@
   box-shadow: none;
 }
 #contact-form ::-webkit-input-placeholder {
-  color: #e2dfc2;
+  color: #c5c51b;
   font-style: italic;
 }
+#contact-form input:focus::-webkit-input-placeholder {
+  color: #9a9a28;
+}
 #contact-form ::-moz-placeholder { /* Firefox 4-18 */
-  color: #e2dfc2;
+  color: #494522;
   font-style: italic;
 }
 #contact-form :-moz-placeholder { /* Firefox 19+ */
-  color: #e2dfc2;
+  color: #494522;
   font-style: italic;
 }
 #contact-form :-ms-input-placeholder { /* Internet Explorer 10+ */
-  color: #e2dfc2;
+  color: #494522;
   font-style: italic;
 }
