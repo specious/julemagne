@@ -38,6 +38,10 @@ var showcase;
 function initShowcase() {
   showcase = $("#showcase");
 
+  // Show 'loading...' animation
+  showcase.loading = showcase.wrap( '<div id="loading-wrap"/>' ).parent();
+  showcase.loading.animation = $( '<div id="loading"/>' ).prependTo( showcase.loading );
+
   showcase.Cloud9Carousel({
     xPos: showcase.width() / 2,
     yPos: 50,
@@ -49,6 +53,11 @@ function initShowcase() {
     bringToFront: true,
     onUpdated: showcaseUpdated,
     onLoaded: function() {
+      showcase.loading.animation.fadeOut( 800, function() {
+        showcase.loading.animation.remove();
+        showcase.unwrap();
+      } );
+
       showcase.css('visibility', 'visible');
       showcase.css('display', 'none');
       showcase.fadeIn( 1500, function() {
