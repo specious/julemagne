@@ -314,6 +314,9 @@ function infoWindowOpen( w, h ) {
   if( win.length === 0 ) {
     win = $('<div id="info-window"><div id="content"></div><a id="close" title="Close"></a></div>').appendTo('#gallery');
     win.find('#close').click( infoWindowClose );
+  } else {
+    // Enable arrow keys in case they were disabled by the contact form showing
+    arrowKeysEnabled = true;
   }
 
   var closeButton = win.find( '#close' ).css( 'display', 'none' );
@@ -343,8 +346,10 @@ function infoWindowOpen( w, h ) {
 var infoWindowBusy = false;
 
 function infoWindowClose() {
-  if( !infoWindowBusy )
+  if( !infoWindowBusy ) {
+    arrowKeysEnabled = true;
     $('#info-window').stop( true ).fadeOut( 400 );
+  }
 }
 
 function infoShow( file, contentId, w, h, onDone ) {
@@ -406,6 +411,10 @@ function isFbPopupOpen( parent ) {
 // Keyboard events
 //
 
+// Contact form may disable the arrow keys so carousel doesn't spin while
+// form inputs are being edited
+var arrowKeysEnabled = true;
+
 function keysInit() {
   $(document).keydown(function(e) {
     //
@@ -414,12 +423,12 @@ function keysInit() {
     switch( e.keyCode ) {
       /* left arrow */
       case 37:
-        $('#nav-left').click();
+        arrowKeysEnabled && $('#nav-left').click();
         break;
 
       /* right arrow */
       case 39:
-        $('#nav-right').click();
+        arrowKeysEnabled && $('#nav-right').click();
         break;
 
       /* escape */

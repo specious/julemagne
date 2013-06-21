@@ -59,6 +59,7 @@ function contactFormSubmitEnable( container ) {
           subtitle.hide();
           form.hide();
           successBox.show();
+          arrowKeysEnabled = true;
 
           $('#info-window').delay( 1300 ).fadeOut( 1800, function() {
             form.get(0).reset();
@@ -91,6 +92,7 @@ function contactFormShow() {
   infoShow( 'contact.html', '#contact-form', 267, 362, function( content ) {
     content.find('#name').focus();
     contactFormSubmitEnable( content );
+    arrowKeysEnabled = false;
   } );
 }
 
