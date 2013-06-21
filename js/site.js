@@ -35,7 +35,7 @@ var mirrorOpts = {
 
 var showcase;
 
-function initShowcase() {
+function showcaseInit() {
   showcase = $("#showcase");
 
   // Show 'loading...' animation
@@ -73,6 +73,21 @@ function initShowcase() {
   // Carousel init messes up arrow buttons' 'display'
   $('.nav-button').css('display', 'inline-block');
   $('.nav-button').click( showcaseArrowClicked );
+
+  showcaseInitSwipe();
+}
+
+function showcaseInitSwipe() {
+  showcase
+    .on( 'swiperight', function() { $('#nav-left').click(); } )
+    .on( 'swipeleft',  function() { $('#nav-right').click(); } )
+    .on( 'movestart',  function( e ) {
+      // Unblock vertical scroll if swipe is more vertical than horizontal
+      if( (e.distX > e.distY && e.distX < -e.distY) ||
+          (e.distX < e.distY && e.distX > -e.distY) ) {
+        e.preventDefault();
+      }
+    } );
 }
 
 function showcaseUpdated( showcase ) {
@@ -394,7 +409,7 @@ function isFbPopupOpen( parent ) {
 // Keyboard events
 //
 
-function initKeys() {
+function keysInit() {
   $(document).keydown(function(e) {
     //
     // Codes: http://www.javascripter.net/faq/keycodes.htm
@@ -422,8 +437,8 @@ function initKeys() {
 //
 
 $(function() {
-  initShowcase();
-  initKeys();
+  showcaseInit();
+  keysInit();
 
   $('#social a').mouseenter( function() {
     iconAnimate( $(this) );
