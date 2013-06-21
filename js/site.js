@@ -38,11 +38,7 @@ var showcase;
 function showcaseInit() {
   showcase = $("#showcase");
 
-  // Show 'loading...' animation
-  showcase.loading = showcase.wrap( '<div id="loading-wrap"/>' ).parent();
-  showcase.loading.animation = $( '<div id="loading"/>' ).prependTo( showcase.loading );
-
-  showcase.Cloud9Carousel({
+  showcase.Cloud9Carousel( {
     xPos: showcase.width() / 2,
     yPos: 50,
     yRadius: 48,
@@ -53,11 +49,13 @@ function showcaseInit() {
     bringToFront: true,
     onUpdated: showcaseUpdated,
     onLoaded: function() {
-      showcase.loading.animation.fadeOut( 800, function() {
-        showcase.loading.animation.remove();
+      // Completely remove 'loading...' animation
+      var loading = $('#loading').fadeOut( 800, function() {
+        loading.remove();
         showcase.unwrap();
       } );
 
+      // The showcase is invisible until this point, fade it in
       showcase.css('visibility', 'visible');
       showcase.css('display', 'none');
       showcase.fadeIn( 1500, function() {
@@ -68,7 +66,7 @@ function showcaseInit() {
         $('#expand > button').animate( { opacity: 1 }, 800 );
       }, 700 );
     }
-  });
+  } );
 
   // Carousel init messes up arrow buttons' 'display'
   $('.nav-button').css('display', 'inline-block');
