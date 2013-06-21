@@ -343,9 +343,8 @@ function infoWindowOpen( w, h ) {
 var infoWindowBusy = false;
 
 function infoWindowClose() {
-  if( !infoWindowBusy ) {
+  if( !infoWindowBusy )
     $('#info-window').stop( true ).fadeOut( 400 );
-  }
 }
 
 function infoShow( file, contentId, w, h, onDone ) {
@@ -356,7 +355,7 @@ function infoShow( file, contentId, w, h, onDone ) {
     content.stop( true ).fadeIn( 1200 );
 
     if( typeof onDone === 'function' )
-        onDone( content );
+      onDone( content );
   }
 
   if( content.length !== 0 ) {

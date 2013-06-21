@@ -60,7 +60,7 @@ function contactFormSubmitEnable( container ) {
           form.hide();
           successBox.show();
 
-          $('#contact-form').delay( 1300 ).fadeOut( 1800, function() {
+          $('#info-window').delay( 1300 ).fadeOut( 1800, function() {
             form.get(0).reset();
             btnSubmit.attr( 'value', 'Send' );
             successBox.hide();
