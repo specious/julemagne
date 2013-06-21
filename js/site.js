@@ -368,14 +368,14 @@ function shareTabInit() {
   var share = $('#share').click( function() {
     if( !share.hasClass( 'open' ) ) {
       share.addClass( 'open' );
-      share.animate( { 'margin-right': '-6px' }, 800 );
+      share.animate( { 'margin-left': '-6px' }, 800 );
     }
   } );
 
   function shareTabClose() {
-    if( share.hasClass( 'open' ) && !share.closing ) {
+    if( share.hasClass( 'open' ) && !share.closing && !isFbPopupOpen( share ) ) {
       share.closing = true;
-      share.stop( true ).animate( { 'margin-right': '-112px' }, 400, function() {
+      share.stop( true ).animate( { 'margin-left': '-112px' }, 400, function() {
         share.closing = false;
         share.removeClass( 'open' );
       } );
@@ -384,6 +384,10 @@ function shareTabInit() {
 
   $(window).scroll( shareTabClose );
   $('.nav-button').click( shareTabClose );
+}
+
+function isFbPopupOpen( parent ) {
+  return parent.find( 'iframe.fb_ltr' ).hasClass( 'fb_iframe_widget_lift' );
 }
 
 //
