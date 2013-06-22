@@ -47,7 +47,7 @@ if( empty($message) ){
 
 if( $valid ) {  
     $headers = 'From: ' . $SUBMIT_FROM . "\r\n";
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";  
+    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
       
     $emailbody = "<p>You have recieved a new message from the enquiries form on your website.</p> 
                   <p><strong>Name: </strong> {$name} </p> 
