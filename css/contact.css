@@ -35,15 +35,24 @@
   margin-bottom: 0.6em;
 }
 #contact-form label {
+  font: 12px/1.5 Arial,sans-serif;
   color: black;
-  font-size: 14px;
+  font-size: 12px;
 }
 #contact-form input:not([type="submit"]),
 #contact-form select,
 #contact-form textarea {
   width: 98%;
-  background-color: #a8a824;
-  border: 1px solid #111110;
+  background: #b89a2e; /* Old browsers */
+  background: -moz-linear-gradient(top, #ffe175 0%, #fcd755 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffe175), color-stop(100%,#fcd755)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #ffe175 0%, #fcd755 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #ffe175 0%, #fcd755 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #ffe175 0%, #fcd755 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #ffe175 0%, #fcd755 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe175', endColorstr='#fcd755', GradientType=0 ); /* IE6-9 */
+
+  border: 1px solid #10100f;
   font-size: 12px;
   margin-bottom: 5px;
   padding: 4px;
@@ -52,13 +61,21 @@
   width: 102%; /* override */
 }
 #contact-form select option {
-  background-color: #f6f637;
+  background-color: #ffe999;
 }
 #contact-form input:not([type="submit"]):focus,
 #contact-form select:focus,
 #contact-form textarea:focus {
-  background: #d1d10a;
-  border: 1px solid #505011;
+  background: #b89a2e; /* Old browsers */
+  background: -moz-linear-gradient(top, #fce064 0%, #fcd755 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fce064), color-stop(100%,#fcd755)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #fce064 0%, #fcd755 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #fce064 0%, #fcd755 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #fce064 0%, #fcd755 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #fce064 0%, #fcd755 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fce064', endColorstr='#fcd755', GradientType=0 ); /* IE6-9 */
+
+  border: 1px solid #504211;
 }
 #contact-form textarea {
   height: 91px;
@@ -95,21 +112,21 @@
   box-shadow: none;
 }
 #contact-form ::-webkit-input-placeholder {
-  color: #c5c51b;
+  color: #c5a11b;
   font-style: italic;
 }
 #contact-form input:focus::-webkit-input-placeholder {
-  color: #9a9a28;
+  color: #9a8128;
 }
 #contact-form ::-moz-placeholder { /* Firefox 4-18 */
-  color: #494522;
+  color: #494022;
   font-style: italic;
 }
 #contact-form :-moz-placeholder { /* Firefox 19+ */
-  color: #494522;
+  color: #494022;
   font-style: italic;
 }
 #contact-form :-ms-input-placeholder { /* Internet Explorer 10+ */
-  color: #494522;
+  color: #494022;
   font-style: italic;
 }
