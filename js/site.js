@@ -180,13 +180,19 @@ function itemAddInfo( item ) {
   item = $(item).addClass( 'gallery-item' );
   item.css( 'height', 'auto' );
 
-  item.append( '<p class="art-info">' + item.find('img').attr('alt') + '</p>' );
+  var img = item.find('img');
+  item.append( '<p class="art-info">' + img.attr('alt') + '</p>' );
+  item.append( '<a class="buy" href="https://www.ribbon.co/'
+                + img.attr('data-ribbon-id')
+                + '" target="_blank" style="opacity: 0;">Buy</a>' );
   item.addClass( 'gallery-item' );
 
   item.hover( function() {
-    item.find('.art-info').fadeTo( 200, 1 );
+    item.find('.art-info').stop().fadeTo( 200, 1 );
+    item.find('.buy').stop().fadeTo( 333, 0.76 );
   }, function() {
-    item.find('.art-info').fadeTo( 200, 0.8 );
+    item.find('.art-info').stop().fadeTo( 200, 0.8 );
+    item.find('.buy').stop().fadeTo( 444, 0 );
   } );
 }
 

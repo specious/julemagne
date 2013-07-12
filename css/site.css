@@ -184,6 +184,44 @@ body {
 .art-info {
   opacity: 0.8;
 }
+.buy {
+  width: 80px;
+  color: #111;
+  font-size: 14px;
+  font-weight: bold;
+
+  background: #ffe175; /* Old browsers */
+  background: -moz-linear-gradient(top,  #ffe175 0%, #c39b22 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffe175), color-stop(100%,#c39b22)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #ffe175 0%,#c39b22 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #ffe175 0%,#c39b22 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #ffe175 0%,#c39b22 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #ffe175 0%,#c39b22 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe175', endColorstr='#c39b22',GradientType=0 ); /* IE6-9 */
+
+  border: 1px solid #f4d35d;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  -webkit-box-shadow: 3px 3px 3px rgba(0,0,0,0.75), inset 0 0 5px 3px #3a2e03;
+  -moz-box-shadow: 3px 3px 3px rgba(0,0,0,0.75), inset 0 0 5px 3px #3a2e03;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.75), inset 0 0 5px 3px #3a2e03;
+
+  text-align: center;
+  text-decoration: none;
+  padding: 4px 0;
+  position: absolute;
+  top: 275px; /* consider that art thumbnail is 240px tall */
+  left: 50%;
+  margin-left: -40px; /* half the width */
+  display: inline-block;
+  cursor: pointer;
+}
+.buy:hover {
+  color: #fff0c2;
+  background: #c39b22;
+  opacity: 0.92;
+}
 #nav-buttons {
   margin-top: -30px;
   text-align: center;
