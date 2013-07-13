@@ -10,11 +10,12 @@ $valid = true;
 $errors = array();
 
 //
-// Sumbission data
+// Submission data
 //
 $ipaddress = $_SERVER['REMOTE_ADDR'];
 $date = date('m/d/Y');
 $time = date('H:i:s');
+$useragent = $_SERVER['HTTP_USER_AGENT'];
 
 //
 // Form data
@@ -28,35 +29,40 @@ $message = $_POST['message'];
 // Validation
 //
 if( empty($name) ) {
-    $valid = false;
-    $errors[] = 'You have not entered a name';
+  $valid = false;
+  $errors[] = 'You have not entered a name';
 }
 
 if( empty($email) ) {
-    $valid = false;
-    $errors[] = 'You have not entered an email address';
+  $valid = false;
+  $errors[] = 'You have not entered an email address';
 } elseif( !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
-    $valid = false;
-    $errors[] = 'You have not entered a valid email address';
+  $valid = false;
+  $errors[] = 'You have not entered a valid email address';
 }
 
 if( empty($message) ){
-    $valid = false;
-    $errors[] = 'You have not entered a message';
+  $valid = false;
+  $errors[] = 'You have not entered a message';
 }
 
 if( $valid ) {  
-    $headers = 'From: ' . $SUBMIT_FROM . "\r\n";
-    $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-      
-    $emailbody = "<p>You have recieved a new message from the enquiries form on your website.</p> 
-                  <p><strong>Name: </strong> {$name} </p> 
-                  <p><strong>Email Address: </strong> {$email} </p> 
-                  <p><strong>Enquiry: </strong> {$enquiry} </p> 
-                  <p><strong>Message: </strong> {$message} </p> 
-                  <p>This message was sent from the IP Address: {$ipaddress} on {$date} at {$time}</p>";  
-      
-    mail( $SUBMIT_TO, 'Web enquiry', $emailbody, $headers );
+  $headers = 'From: ' . $SUBMIT_FROM . "\r\n";
+  $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+
+  $emailbody = <<<EOM
+<p>You have recieved a new message from the enquiries form on your website.</p>
+<p><strong>Name: </strong>{$name}</p>
+<p><strong>Email Address: </strong>{$email}</p>
+<p><strong>Enquiry: </strong>{$enquiry}</p>
+<p><strong>Message: </strong>{$message}</p>
+<div style='border: 1px solid black'>
+  This message was sent from the IP Address: {$ipaddress} on {$date} at {$time}<br>
+  User agent: {$useragent}
+</div>
+EOM;
+
+  mail( $SUBMIT_TO, 'Web enquiry', $emailbody, $headers );
 }
 
 //
