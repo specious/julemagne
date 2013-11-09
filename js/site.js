@@ -182,7 +182,7 @@ function itemAddInfo( item ) {
 
   var img = item.find('img');
   item.append( '<p class="art-info">' + img.attr('alt') + '</p>' );
-  item.append( '<a class="buy" href="https://www.ribbon.co/'
+  item.append( '<a class="buy" href="https://o.rbn.co/'
                 + img.attr('data-ribbon-id')
                 + '" target="_blank" style="opacity: 0;">Buy</a>' );
   item.addClass( 'gallery-item' );

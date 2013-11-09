@@ -1,7 +1,8 @@
 /*
  * Contact form validation
  *
- * Adapted from: http://net.tutsplus.com/tutorials/html-css-techniques/build-a-neat-html5-powered-contact-form/
+ * Adapted by Ildar Sagdejev (Twitter: @tknomad) from:
+ *   http://net.tutsplus.com/tutorials/html-css-techniques/build-a-neat-html5-powered-contact-form/
  */
 
 var isEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
