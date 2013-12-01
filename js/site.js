@@ -2,7 +2,7 @@
 
 function iconAnimate( icon ) {
   var i, h = icon.height(),
-      x = icon.stop( true ).css('background-position').split(' ')[0],
+      x = icon.stop( true ).css('background-position').split(' ')[1],
       lastStep = -1;
 
   $({ i: 0 }).animate(
