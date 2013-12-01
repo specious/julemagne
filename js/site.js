@@ -411,8 +411,17 @@ function shareTabInit() {
     }
   }
 
+  // Close tab on window scroll
   $(window).scroll( shareTabClose );
+
+  // Close tab on gallery spin
   $('.nav-button').click( shareTabClose );
+
+  // Close tab when clicked anywhere outside
+  $('body').click( function( e ) {
+    if( !($(e.target).is('#share') || $(e.target).closest('#share').length ) )
+      shareTabClose();
+  } );
 }
 
 function isFbPopupOpen( parent ) {
