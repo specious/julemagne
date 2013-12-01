@@ -265,6 +265,12 @@ body {
   letter-spacing: 0.1em;
   opacity: 0;
 }
+#loading-more {
+  height: 35px;
+  padding: 12px 0;
+  background: url('../gfx/loading.gif') center center no-repeat;
+  display: none;
+}
 #share {
   width: 152px;
   height: 130px;

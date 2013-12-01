@@ -213,6 +213,9 @@ function galleryItemCreate( img ) {
 }
 
 function loadMoreGallery( file ) {
+  // Show loading bar
+  $("#loading-more").css( 'display', 'block' );
+
   $.get( file ).done( function( data ) {
     var items = [];
 
@@ -229,7 +232,10 @@ function loadMoreGallery( file ) {
     for( var i in items ) {
       $(items[i]).one( 'load', function() {
         if( --count === 0 ) {
-          for( var i in items ) {
+            // Hide loading bar
+            $("#loading-more").css( 'display', 'none' );
+
+            for( var i in items ) {
             var item = items[i] = galleryItemCreate( items[i] );
             itemAddInfo( item );
           }
