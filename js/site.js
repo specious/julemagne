@@ -1,4 +1,6 @@
-/* Aloha! */
+/*
+ * Code by Ildar Sagdejev ( http://www.tknomad.com )
+ */
 
 function iconAnimate( icon ) {
   var i, h = icon.height(),
@@ -193,6 +195,19 @@ function itemAddInfo( item ) {
   }, function() {
     item.find('.art-info').stop().fadeTo( 200, 0.8 );
     item.find('.buy').stop().fadeTo( 444, 0 );
+  } );
+
+  // Attach lightbox to PNG thumbnail so it can be zoomed to full size JPG
+  var a = img.wrap('<a href="' + img.attr('src').replace('thumbs/', '').replace('.png', '.jpg')
+    + '" rel="gallery" title="' + img.attr('alt')
+    + '"/>').parent();
+  $(a).fancybox( {
+    closeClick: true,
+    openEffect: 'elastic',
+    openSpeed: 720,
+    overlay: { showEarly: true },
+    prevEffect: 'none',
+    nextEffect: 'none',
   } );
 }
 
@@ -419,7 +434,7 @@ function shareTabInit() {
 
   // Close tab when clicked anywhere outside
   $('body').click( function( e ) {
-    if( !($(e.target).is('#share') || $(e.target).closest('#share').length ) )
+    if( !($(e.target).is('#share') || $(e.target).closest('#share').length) )
       shareTabClose();
   } );
 }
