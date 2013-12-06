@@ -216,8 +216,8 @@ function itemAddInfo( item ) {
           style: {
               classes: 'qtip-dark'
           },
-          show: 'mouseover',
-          hide: 'mouseout'
+          show: { event: 'click mouseover' },
+          hide: { event: 'mouseout' }
     } );
   }
 
