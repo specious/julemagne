@@ -460,6 +460,9 @@ function shareTabInit() {
     }
   }
 
+  // Close tab when clicked if it's open
+  $('#share .tab').click( shareTabClose );
+
   // Close tab on window scroll
   $(window).scroll( shareTabClose );
 

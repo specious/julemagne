@@ -328,6 +328,7 @@ body {
   transform: rotate(90deg);
   margin: 19px;
   float: right;
+  cursor: pointer;
   display: inline-block;
 }
 #share-buttons {
