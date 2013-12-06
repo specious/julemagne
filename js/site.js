@@ -4,8 +4,14 @@
 
 function iconAnimate( icon ) {
   var i, h = icon.height(),
-      x = icon.stop( true ).css('background-position').split(' ')[1],
+      x = icon.stop( true ).css('background-position').split(' '),
       lastStep = -1;
+
+  //
+  // Some browsers report background-position as
+  // "<x> <y>", others as "left <x> top <y>"
+  //
+  x = ( x[0] === 'left' ) ? x[1] : x[0];
 
   $({ i: 0 }).animate(
     { i: 10.9 }, {
