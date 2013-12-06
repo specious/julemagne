@@ -1,7 +1,7 @@
 /*
  * Contact form validation
  *
- * Adapted by Ildar Sagdejev (Twitter: @tknomad) from:
+ * Adapted by Ildar Sagdejev ( http://www.tknomad.com ) from:
  *   http://net.tutsplus.com/tutorials/html-css-techniques/build-a-neat-html5-powered-contact-form/
  */
 

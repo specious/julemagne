@@ -91,12 +91,12 @@ function showcaseInitSwipe() {
 }
 
 function showcaseUpdated( showcase ) {
-  $('#art-title').html(
+  $('#caption').html(
     $(showcase.nearestItem().image).attr('alt')
   );
 
   var c = Math.cos((showcase.floatIndex() % 1) * 2 * Math.PI);
-  $('#art-title').css( 'opacity', 0.5 + (0.5 * c) );
+  $('#caption').css( 'opacity', 0.5 + (0.5 * c) );
 }
 
 function showcaseArrowClicked( event ) {
@@ -183,21 +183,47 @@ function itemAddInfo( item ) {
   item.css( 'height', 'auto' );
 
   var img = item.find('img');
-  item.append( '<p class="art-info">' + img.attr('alt') + '</p>' );
+  item.append( '<p class="item-caption">' + img.attr('alt') + '</p>' );
   item.append( '<a class="buy" href="https://o.rbn.co/'
                 + img.attr('data-ribbon-id')
-                + '" target="_blank" style="opacity: 0;">Buy</a>' );
+                + '" target="_blank" style="opacity: 0">Buy</a>' );
   item.addClass( 'gallery-item' );
 
-  item.hover( function() {
-    item.find('.art-info').stop().fadeTo( 200, 1 );
-    item.find('.buy').stop().fadeTo( 333, 0.76 );
-  }, function() {
-    item.find('.art-info').stop().fadeTo( 200, 0.8 );
-    item.find('.buy').stop().fadeTo( 444, 0 );
-  } );
+  //
+  // Attach "info" tooltip
+  //
+  var tip_info = img.attr('data-info');
+  var tip = '';
 
+  if( tip_info !== undefined && tip_info != '' ) {
+    var fields = ['Year', 'Width', 'Height', 'Depth'];
+    tip_info = tip_info.split(' ');
+
+    for( var idx in tip_info ) {
+      if( idx == fields.length )
+        break;
+
+      if( tip_info[idx] != 'N/A' )
+        tip += '<p><strong>' + fields[idx] + ':</strong> ' + tip_info[idx] + '</p>';
+    }
+  }
+
+  if( tip !== '' ) {
+    item.append('<div class="item-info" style="opacity: 0"></div>')
+        .find('.item-info')
+        .qtip( {
+          content: tip,
+          style: {
+              classes: 'qtip-dark'
+          },
+          show: 'mouseover',
+          hide: 'mouseout'
+    } );
+  }
+
+  //
   // Attach lightbox to PNG thumbnail so it can be zoomed to full size JPG
+  //
   var a = img.wrap('<a href="' + img.attr('src').replace('thumbs/', '').replace('.png', '.jpg')
     + '" rel="gallery" title="' + img.attr('alt')
     + '"/>').parent();
@@ -209,6 +235,14 @@ function itemAddInfo( item ) {
     prevEffect: 'none',
     nextEffect: 'none',
   } );
+
+  item.hover( function() {
+    item.find('.item-caption').stop().fadeTo( 200, 1 );
+  }, function() {
+    item.find('.item-caption').stop().fadeTo( 200, 0.8 );
+  } );
+
+  item.find('.buy, .item-info').stop().fadeTo( 333, 0.56 );
 }
 
 // Create gallery item from an image the same way Cloud9Carousel does
@@ -285,7 +319,7 @@ function showcaseExpand() {
   // Get carousel navigation items out of the way
   $('#expand').fadeOut( 1300 );
   $('#nav-buttons').fadeOut( 1300 );
-  $('#art-title').fadeOut( 1300 );
+  $('#caption').fadeOut( 1300 );
   $('#nav-left').animate( {'margin-right': '300px'}, 1300 );
   $('#nav-right').animate( {'margin-left': '344px'}, 1300 );
   infoWindowClose();

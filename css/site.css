@@ -157,8 +157,8 @@ body {
 .cloud9-item {
   cursor: pointer;
 }
-#art-title,
-.art-info {
+#caption,
+.item-caption {
   color: #cecece;
   font-family: 'CaslonPro';
   font-style: italic;
@@ -167,10 +167,10 @@ body {
   text-shadow: 1px 1px 5px #555;
   text-align: center;
 }
-#art-title {
+#caption {
   margin-top: 0;
 }
-.art-info {
+.item-caption {
   opacity: 0.8;
 }
 .buy {
@@ -200,16 +200,30 @@ body {
   text-decoration: none;
   padding: 4px 0;
   position: absolute;
-  top: 275px; /* consider that art thumbnail is 240px tall */
+  top: 270px; /* consider that art thumbnail is 240px tall */
   left: 50%;
   margin-left: -40px; /* half the width */
-  display: inline-block;
   cursor: pointer;
 }
 .buy:hover {
   color: #fff0c2;
   background: #c39b22;
-  opacity: 0.92;
+  opacity: 1 !important;
+}
+.item-info {
+  width: 28px;
+  height: 28px;
+  background: url('../gfx/icon-info.png') no-repeat;
+  cursor: pointer;
+  position: absolute;
+  top: 270px;
+  right: 10px;
+}
+.qtip p {
+  font-family: 'Arial';
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin: 5px 0;
 }
 #nav-buttons {
   margin-top: -30px;
