@@ -46,7 +46,7 @@ if( empty($message) ){
   $errors[] = 'You have not entered a message';
 }
 
-if( $valid ) {  
+if( $valid ) {
   $headers = 'From: ' . $SUBMIT_FROM . "\r\n";
   $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
 

@@ -24,7 +24,6 @@ body {
   color: #eee;
   margin: 0;
   overflow-x: hidden;
-
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -51,12 +50,10 @@ body {
   height: inherit;
   background: inherit;
   opacity: 0;
-
   -webkit-transition: all 0.06s ease-in;
   -moz-transition: all 0.06s ease-in;
   -o-transition: all 0.06s ease-in;
   transition: all 0.06s ease-in;
-
   -webkit-transition: all 0.14s ease-out;
   -moz-transition: all 0.14s ease-out;
   -o-transition: all 0.14s ease-out;
@@ -299,7 +296,6 @@ body {
   -webkit-box-shadow: 0px 3px 3px rgba(0,0,0,0.75), inset 0 0 5px 3px #3a2e03;
   -moz-box-shadow: 0px 3px 3px rgba(0,0,0,0.75), inset 0 0 5px 3px #3a2e03;
   box-shadow: 0px 3px 3px rgba(0,0,0,0.75), inset 0 0 5px 3px #3a2e03;
-
   color: #10100f;
   margin-left: -112px;
   left: 0;
@@ -452,17 +448,13 @@ body {
   text-shadow: 0 1px #000;
   font-size: 16px;
   text-decoration: none;
-
   padding: 0.5em 0.5em;
   margin: 0.5em;
-
   cursor: pointer;
   overflow: visible;
-
   -webkit-border-radius: 17px;
   -moz-border-radius: 17px;
   border-radius: 17px;
-
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -o-transition: all 0.1s ease-in-out;

@@ -1,17 +1,5 @@
-@font-face {
-  /* source: http://www.fontsquirrel.com/fonts/kaushan-script */
-  font-family: 'KaushanScriptRegular';
-  src: url('../fonts/KaushanScript-Regular-webfont.eot');
-  src: url('../fonts/KaushanScript-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-       url('../fonts/KaushanScript-Regular-webfont.woff') format('woff'),
-       url('../fonts/KaushanScript-Regular-webfont.ttf') format('truetype'),
-       url('../fonts/KaushanScript-Regular-webfont.svg#KaushanScriptRegular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
 /*
- * Contact form
+ * Contact form style
  */
 
 #contact-form {
@@ -51,7 +39,6 @@
   background: -ms-linear-gradient(top, #ffe175 0%, #fcd755 100%); /* IE10+ */
   background: linear-gradient(to bottom, #ffe175 0%, #fcd755 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffe175', endColorstr='#fcd755', GradientType=0 ); /* IE6-9 */
-
   border: 1px solid #10100f;
   font-size: 12px;
   margin-bottom: 5px;
@@ -74,7 +61,6 @@
   background: -ms-linear-gradient(top, #fce064 0%, #fcd755 100%); /* IE10+ */
   background: linear-gradient(to bottom, #fce064 0%, #fcd755 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fce064', endColorstr='#fcd755', GradientType=0 ); /* IE6-9 */
-
   border: 1px solid #504211;
 }
 #contact-form textarea {

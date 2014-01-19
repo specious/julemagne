@@ -16,7 +16,7 @@ function contactFormSubmitEnable( container ) {
       fields = form.find('input[type!="submit"],textarea'),
       btnSubmit = form.find('[type="submit"]');
 
-  // 
+  //
   // An invalid HTML5 form element will not trigger a form submit event,
   // so we intercept the submit button click.
   //
@@ -30,7 +30,7 @@ function contactFormSubmitEnable( container ) {
       // If built-in HTML5 validity checking is supported, all is easy
       if( this.validity && !this.validity.valid )
         valid = false;
-      
+
       if( valid && this.hasAttribute('required') )
         if( value == '' )
           valid = false;
@@ -47,7 +47,7 @@ function contactFormSubmitEnable( container ) {
     } );
 
     if( valid && !infoWindowBusy ) {
-      var successBox = container.find('#success');
+      var success = container.find('#success');
       btnSubmit.attr( 'value', 'Submitting' );
       infoWindowBusy = true;
 
@@ -59,13 +59,13 @@ function contactFormSubmitEnable( container ) {
           var subtitle = container.children('h2');
           subtitle.hide();
           form.hide();
-          successBox.show();
+          success.show();
           arrowKeysEnabled = true;
 
           $('#info-window').delay( 1300 ).fadeOut( 1800, function() {
             form.get(0).reset();
             btnSubmit.attr( 'value', 'Send' );
-            successBox.hide();
+            success.hide();
             subtitle.show();
             form.show();
             infoWindowBusy = false;
