@@ -14,9 +14,8 @@ html {
 }
 body {
   height: 100%;
-	background-color: black;
-	color: #eee;
-
+  background-color: black;
+  color: #eee;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -25,10 +24,10 @@ body {
   user-select: none;
 }
 ::-moz-selection {
-	background-color: black;
+  background-color: black;
 }
 ::selection {
-	background-color: black;
+  background-color: black;
 }
 #content {
   top: 20%;
@@ -37,12 +36,12 @@ body {
   position: relative;
 }
 #author, .epithet {
-	color: rgba(253, 244, 52, 0.83);
-	text-shadow: 2px 3px 6px #555;
-	font-family: 'CarringtonRegular';
-	font-size: 54px;
-	letter-spacing: 0.13em;
-	text-align: center;
+  color: rgba(253, 244, 52, 0.83);
+  text-shadow: 2px 3px 6px #555;
+  font-family: 'CarringtonRegular';
+  font-size: 54px;
+  letter-spacing: 0.13em;
+  text-align: center;
 }
 #author > .initial,
 #author > .letter:hover {
@@ -56,7 +55,6 @@ body {
   -moz-transition: all 0.05s ease-in;
   -o-transition: all 0.05s ease-in;
   transition: all 0.05s ease-in;
-
   -webkit-transition: all 0.1s ease-out;
   -moz-transition: all 0.1s ease-out;
   -o-transition: all 0.1s ease-out;
