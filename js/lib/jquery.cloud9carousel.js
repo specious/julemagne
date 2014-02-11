@@ -2,7 +2,7 @@
  * Cloud 9 Carousel
  *   Cleaned up, refactored, and improved version of CloudCarousel
  *
- * Get the latest version on GitHub:
+ * See the demo and get the latest version on GitHub:
  *   http://specious.github.io/cloud9carousel/
  *
  * Copyright (c) 2014 by Ildar Sagdejev ( http://twitter.com/tknomad )
@@ -12,38 +12,37 @@
  * Please retain this copyright header in all versions of the software
  *
  * Requires:
- *  - jQuery
+ *  - jQuery 1.3.0 or later -OR- Zepto 1.1.1 or later
  *
- * Optional:
- *  - reflection.js plugin by Christophe Beyls
+ * Optional (jQuery only):
+ *  - Reflection support via reflection.js plugin by Christophe Beyls
  *     http://www.digitalia.be/software/reflectionjs-for-jquery
- *  - mousewheel plugin
+ *  - Mousewheel support via mousewheel plugin
  *     http://plugins.jquery.com/mousewheel/
  */
 
-(function($) {
-  var Item = function( image, options ) {
+;(function($) {
+  var Item = function( image, mirrorOptions ) {
+    image.item = this;
     this.image = image;
-    this.image.item = this;
     this.fullWidth = image.width;
     this.fullHeight = image.height;
     this.alt = image.alt;
     this.title = image.title;
-    this.reflection = null;
-    this.options = options;
 
-    $(this.image).css('position', 'absolute');
+    $(image).css( 'position', 'absolute' );
 
-    // Create item reflection, which puts the image and its reflection into
-    // a new container div
-    if (this.options.mirrorOptions) {
-      this.reflection = $( $(this.image).reflect(options.mirrorOptions) ).next()[0];
+    //
+    // Generate reflection and wrap image and its reflection together in a div
+    //
+    if( mirrorOptions ) {
+      this.reflection = $( $(this.image).reflect(mirrorOptions) ).next()[0];
       this.reflection.fullHeight = $(this.reflection).height();
-      $(this.reflection).css('margin-top', options.mirrorOptions.gap + 'px');
+      $(this.reflection).css('margin-top', mirrorOptions.gap + 'px');
       $(this.reflection).css('width', '100%');
       $(this.image).css('width', '100%');
 
-      // Transfer the item handle to the new wrapper container
+      // Pass the item handle to the wrapper container
       this.image.parentNode.item = this.image.item;
     }
 
@@ -54,168 +53,110 @@
       this.y = y;
       this.scale = scale;
 
-      var container = (this.reflection === null) ? this.image : this.image.parentNode;
-      container.style.width = this.width + "px";
-      container.style.height = this.height + "px";
-      container.style.left = x + "px";
-      container.style.top = y + "px";
-      container.style.zIndex = "" + (scale * 100)>>0; // >>0 = Math.foor()
+      var style = (mirrorOptions ? this.image.parentNode : this.image).style;
+      style.width = this.width + "px";
+      style.left = x + "px";
+      style.top = y + "px";
+      style.zIndex = "" + (scale * 100) | 0;
 
-      if (this.options.mirrorOptions) {
-        var hMirror = this.reflection.fullHeight * scale;
-        var hGap = options.mirrorOptions.gap * scale;
+      if( mirrorOptions ) {
+        var hGap = mirrorOptions.gap * scale;
 
-        container.style.height = this.height + hGap + hMirror + "px";
+        style.height = this.height + (this.reflection.fullHeight * scale) + "px";
         this.reflection.style.marginTop = hGap + "px";
-      }
+      } else
+        style.height = this.height + "px";
     }
-  };
+  }
 
-  var Carousel = function( container, images, options ) {
-    var items = [];
-    var ctx = this;
-    this.items = items;
-    this.controlTimer = 0;
-    this.container = container;
-    this.xRadius = (options.xRadius === 0) ? $(container).width()/2.3 : options.xRadius;
-    this.yRadius = (options.yRadius === 0) ? $(container).height()/6  : options.yRadius;
-    this.autoRotateTimer = 0;
+  var Carousel = function( container, options ) {
+    var self = this;
+    this.items = [];
+    this.xCentre = (options.xPos === null) ? container.width() * 0.5  : options.xPos;
+    this.yCentre = (options.yPos === null) ? container.height() * 0.1 : options.yPos;
+    this.xRadius = (options.xRadius === null) ? container.width()/2.3 : options.xRadius;
+    this.yRadius = (options.yRadius === null) ? container.height()/6  : options.yRadius;
+    this.farScale = options.farScale;
+    this.rotation = this.destRotation = Math.PI/2; // put the first item in front
+    this.speed = options.speed;
+    this.frameDelay = (1000/options.FPS) | 0;
+    this.frameTimer = 0;
+    this.autoPlayAmount = options.autoPlay;
+    this.autoPlayDelay = options.autoPlayDelay;
+    this.autoPlayTimer = 0;
     this.onLoaded = options.onLoaded;
-    this.onUpdated = options.onUpdated;
+    this.onRendered = options.onRendered;
 
     if( options.mirrorOptions ) {
-      options.mirrorOptions = $.extend( {
+      this.mirrorOptions = $.extend( {
         gap: 2
       }, options.mirrorOptions );
     }
 
-    this.xCentre = options.xPos;
-    this.yCentre = options.yPos;
+    container.css( {position: 'relative', overflow: 'hidden'} );
 
-    // Start with the first item at the front.
-    this.rotation = this.destRotation = Math.PI/2;
-    this.timeDelay = 1000/options.FPS;
+    // Rotation:
+    //  *      0 : right
+    //  *   Pi/2 : front
+    //  *   Pi   : left
+    //  * 3 Pi/2 : back
+    this.rotateItem = function( itemIndex, rotation ) {
+      var item = this.items[itemIndex];
+      var sin = Math.sin(rotation);
+      var farScale = this.farScale;
+      var scale = farScale + ((1-farScale) * (sin+1) * 0.5);
 
-    this.innerWrapper = $(container).wrapInner('<div style="position:absolute;width:100%;height:100%;"/>').children()[0];
-
-    // Turn on relative position for container to allow absolutely positioned elements
-    // within it to work.
-    $(container).css( {position:'relative', overflow:'hidden'} );
-
-    $(options.buttonLeft).css('display','inline');
-    $(options.buttonRight).css('display','inline');
-
-    this.bindControls = function () {
-      $(options.buttonLeft).bind( 'click', this, function(event) {
-        event.data.rotate(-1);
-        return false;
-      } );
-
-      $(options.buttonRight).bind( 'click', this, function(event) {
-        event.data.rotate(1);
-        return false;
-      } );
-
-      // You will need this plugin for the mousewheel to work: http://plugins.jquery.com/project/mousewheel
-      if (options.mouseWheel) {
-        $(container).bind('mousewheel',this,function(event, delta) {
-          event.data.rotate(delta);
-          return false;
-        });
-      }
-
-      if( options.bringToFront ) {
-        $(container).bind( 'click.cloud9', this, function( event ) {
-          var item = $(event.target).closest( '.' + options.itemClass )[0].item;
-          var idx = event.data.items.indexOf( item );
-
-          var diff = (idx - event.data.floatIndex()) % images.length;
-          if (Math.abs(diff) > images.length / 2)
-            diff += (diff > 0 ? -images.length : images.length);
-
-          event.data.rotate(-diff);
-        });
-      }
-
-      // Stop auto rotation on mouse over
-      $(container).bind( 'mouseover.cloud9', this, function(event) {
-        clearInterval(event.data.autoRotateTimer);
-      } );
-
-      // Resume auto rotation on mouse out
-      $(container).bind( 'mouseout.cloud9', this, function(event) {
-        var context = event.data;
-        context.autoRotate();
-      } );
-
-      // Prevent items from being selected by click-dragging inside the container
-      $(container).bind( 'mousedown', this, function(event) {
-        return false;
-      } );
-
-      // Same in IE
-      container.onselectstart = function () {
-        return false;
-      };
+      item.moveTo(
+        this.xCentre + (scale * ((Math.cos(rotation) * this.xRadius) - (item.fullWidth * 0.5))),
+        this.yCentre + (scale * sin * this.yRadius),
+        scale
+      );
     }
 
-    this.go = function() {
-      if(this.controlTimer !== 0) { return; }
-      var context = this;
-      this.controlTimer = setTimeout( function(){context.update();},this.timeDelay );
-    };
+    this.render = function() {
+      var count = this.items.length;
+      var spacing = 2 * Math.PI / count;
+      var radians = this.rotation;
 
-    this.stop = function() {
-      clearTimeout(this.controlTimer);
-      this.controlTimer = 0;
-    };
+      for( var i = 0; i < count; i++ ) {
+        this.rotateItem( i, radians );
+        radians += spacing;
+      }
 
-    // Deactivate the carousel
-    this.halt = function() {
-      this.stop();
-
-      $(options.buttonLeft).unbind( 'click' );
-      $(options.buttonRight).unbind( 'click' );
-      $(container).unbind( '.cloud9' );
+      if( typeof this.onRendered === 'function' )
+        this.onRendered( this );
     }
 
-    // Starts the rotation of the carousel. Direction is the number (+-) of carousel items to rotate by.
-    this.rotate = function(direction) {
-      this.destRotation += ( Math.PI / items.length ) * ( 2*direction );
-      this.go();
-    };
+    this.playFrame = function() {
+      var change = this.destRotation - this.rotation;
 
-    this.autoRotate = function() {
-      if( options.autoRotate !== false ) {
-        var dir = (options.autoRotate === 'right') ? 1 : -1;
-        this.autoRotateTimer = setInterval(
-          function() { ctx.rotate(dir) },
-          options.autoRotateDelay
-        );
+      if( Math.abs(change) < 0.001 ) {
+        this.rotation = this.destRotation;
+        this.pause();
+      } else {
+        this.rotation += change * this.speed;
+        this.scheduleNextFrame();
       }
-    };
 
-    this.rotateItem = function(itemIndex, rotation) {
-      var item = items[itemIndex];
-      var minScale = options.minScale;  // This is the smallest scale applied to the furthest item.
-      var smallRange = (1-minScale) * 0.5;
-      var sinVal = Math.sin(rotation);
-      var scale = ((sinVal+1) * smallRange) + minScale;
+      this.render();
+    }
 
-      var x = this.xCentre + (( (Math.cos(rotation) * this.xRadius) - (item.fullWidth*0.5)) * scale);
-      var y = this.yCentre + (( (sinVal * this.yRadius) ) * scale);
-
-      item.moveTo(x, y, scale);
+    this.scheduleNextFrame = function() {
+      this.frameTimer = setTimeout( function() { self.playFrame() }, this.frameDelay );
     }
 
     this.itemsRotated = function() {
-      return this.items.length * ((Math.PI/2) - this.rotation ) / (2*Math.PI);
+      return this.items.length * ((Math.PI/2) - this.rotation) / (2*Math.PI);
     }
 
     this.floatIndex = function() {
-      var floatIndex = this.itemsRotated() % this.items.length;
-      return ( floatIndex < 0 ) ? floatIndex + this.items.length : floatIndex;
+      var count = this.items.length;
+      var floatIndex = this.itemsRotated() % count;
+
+      // Make sure float-index is positive
+      return (floatIndex < 0) ? floatIndex + count : floatIndex;
     }
+
     this.nearestIndex = function() {
       return Math.round( this.floatIndex() ) % this.items.length;
     }
@@ -224,89 +165,147 @@
       return this.items[this.nearestIndex()];
     }
 
-    // Main loop function that rotates the carousel.
-    this.update = function() {
-      var change = (this.destRotation - this.rotation);
-      var absChange = Math.abs(change);
+    this.play = function() {
+      if( this.frameTimer === 0 )
+        this.scheduleNextFrame();
+    }
 
-      this.rotation += change * options.speed;
-      if ( absChange < 0.001 ) { this.rotation = this.destRotation; }
-      var numItems = items.length;
-      var spacing = (Math.PI / numItems) * 2;
-      var radians = this.rotation;
+    this.pause = function() {
+      clearTimeout( this.frameTimer );
+      this.frameTimer = 0;
+    }
 
-      // Turn off display. This can reduce repaints/reflows when making style and position changes in the loop.
-      // See http://dev.opera.com/articles/view/efficient-javascript/?page=3
-      this.innerWrapper.style.display = 'none';
+    //
+    // Spin the carousel.  Count is the number (+-) of carousel items to rotate
+    //
+    this.go = function( count ) {
+      this.destRotation += (2 * Math.PI / this.items.length) * count;
+      this.play();
+    }
 
-      for (var i = 0; i<numItems; i++) {
-        this.rotateItem(i, radians);
-        radians += spacing;
+    this.deactivate = function() {
+      this.pause();
+      clearInterval( this.autoPlayTimer );
+      options.buttonLeft.unbind( 'click' );
+      options.buttonRight.unbind( 'click' );
+      container.unbind( '.cloud9' );
+    }
+
+    this.autoPlay = function() {
+      this.autoPlayTimer = setInterval(
+        function() { self.go( self.autoPlayAmount ) },
+        this.autoPlayDelay
+      );
+    }
+
+    this.enableAutoPlay = function() {
+      // Stop auto-play on mouse over
+      container.bind( 'mouseover.cloud9', function() {
+        clearInterval( self.autoPlayTimer );
+      } );
+
+      // Resume auto-play when mouse leaves the container
+      container.bind( 'mouseout.cloud9', function() {
+        self.autoPlay();
+      } );
+
+      this.autoPlay();
+    }
+
+    this.bindControls = function() {
+      options.buttonLeft.bind( 'click', function() {
+        self.go( -1 );
+        return false;
+      } );
+
+      options.buttonRight.bind( 'click', function() {
+        self.go( 1 );
+        return false;
+      } );
+
+      if( options.mouseWheel ) {
+        container.bind( 'mousewheel.cloud9', function( event, delta ) {
+          self.go( (delta > 0) ? 1 : -1 );
+          return false;
+        } );
       }
 
-      // Turn display back on.
-      this.innerWrapper.style.display = 'block';
+      if( options.bringToFront ) {
+        container.bind( 'click.cloud9', function( event ) {
+          var hits = $(event.target).closest( '.' + options.itemClass );
 
-      var context = this;
+          if( hits.length !== 0 ) {
+            var idx = self.items.indexOf( hits[0].item );
+            var count = self.items.length;
+            var diff = idx - (self.floatIndex() % count);
 
-      // If we have a preceptible change in rotation then loop again next frame.
-      if ( absChange >= 0.001 ) {
-        this.controlTimer = setTimeout(function() {context.update();}, this.timeDelay);
-      } else {
-        // Otherwise just stop completely.
-        this.stop();
+            // Choose direction based on which way is shortest
+            if( 2 * Math.abs(diff) > count )
+              diff += (diff > 0) ? -count : count;
+
+            self.destRotation = self.rotation;
+            self.go( -diff );
+          }
+        } );
       }
+    }
 
-      if( typeof this.onUpdated === 'function' )
-        this.onUpdated( this );
-    };
+    var images = container.find( '.' + options.itemClass );
 
-    // Check if images have loaded. We need valid widths and heights for the reflections.
-    this.checkImagesLoaded = function() {
+    this.finishInit = function() {
+      //
+      // Wait until all images have completely loaded
+      //
       for( var i = 0; i < images.length; i++ ) {
         var im = images[i];
-        if ( (im.width === undefined) || ((im.complete !== undefined) && (!im.complete)) ) {
+        if( (im.width === undefined) || ((im.complete !== undefined) && !im.complete) )
           return;
-        }
       }
 
-      for( i = 0; i < images.length; i++ )
-        items.push(new Item( images[i], options ));
+      clearInterval( this.initTimer );
 
-      // If all images have valid widths and heights, we can stop checking.
-      clearInterval(this.tt);
+      // Init items
+      for( i = 0; i < images.length; i++ )
+        this.items.push( new Item( images[i], this.mirrorOptions ) );
+
+      // Disable click-dragging of items
+      container.bind( 'mousedown onselectstart', function() { return false } );
+
+      if( this.autoPlayAmount !== 0 ) this.enableAutoPlay();
       this.bindControls();
-      this.autoRotate();
-      this.update();
+      this.render();
 
       if( typeof this.onLoaded === 'function' )
         this.onLoaded( this );
     };
 
-    this.tt = setInterval( function(){ctx.checkImagesLoaded();}, 50 );
-  };
+    this.initTimer = setInterval( function() { self.finishInit() }, 50 );
+  }
 
-  // The jQuery plugin.
-  // Creates a carousel object for each item in the selector.
+  //
+  // The jQuery plugin
+  //
   $.fn.Cloud9Carousel = function( options ) {
     return this.each( function() {
-      options = $.extend( {}, {
-        xPos: 0,
-        yPos: 0,
-        xRadius: 0,
-        yRadius: 0,
-        minScale: 0.5,
+      options = $.extend( {
+        xPos: null,           // null: automatically calculated
+        yPos: null,
+        xRadius: null,
+        yRadius: null,
+        farScale: 0.5,        // scale of the farthest item
         mirrorOptions: false,
-        itemClass: 'cloud9-item',
         FPS: 30,
-        speed: 0.2,
-        autoRotate: false,
-        autoRotateDelay: 1500,
+        speed: 0.13,
+        autoPlay: 0,          // [ 0: off | number of items (integer recommended, positive is clockwise) ]
+        autoPlayDelay: 4000,
         mouseWheel: false,
-        bringToFront: false
+        bringToFront: false,
+        itemClass: 'cloud9-item',
+        handle: 'carousel'
       }, options );
 
-      $(this).data( 'cloud9carousel', new Carousel(this, $('.'+options.itemClass, $(this)), options) );
+      var self = $(this);
+      self.data( options.handle, new Carousel( self, options ) );
     } );
-  };
-})(jQuery);
+  }
+})( window.jQuery || window.Zepto );

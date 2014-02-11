@@ -55,7 +55,7 @@ function showcaseInit() {
     buttonLeft: $("#nav-left"),
     buttonRight: $("#nav-right"),
     bringToFront: true,
-    onUpdated: showcaseUpdated,
+    onRendered: showcaseUpdated,
     onLoaded: function() {
       // Completely remove 'loading...' animation
       var loading = $('#loading').fadeOut( 800, function() {
@@ -76,8 +76,6 @@ function showcaseInit() {
     }
   } );
 
-  // Carousel init messes up arrow buttons' 'display'
-  $('.nav-button').css('display', 'inline-block');
   $('.nav-button').click( showcaseArrowClicked );
 
   showcaseInitSwipe();
@@ -158,7 +156,7 @@ function sortByRows( items, rowWidth ) {
 
     var w = this.fullWidth + (2 * GALLERY_ITEM_MARGIN_X);
 
-    if( rowFree - w < 0 && rowItems.length !== 0 ) {
+    if( rowFree < w && rowItems.length !== 0 ) {
       row++;
       rowItems = [];
       rowFree = rowWidth;
@@ -276,10 +274,10 @@ function loadMoreGallery( file ) {
 
     // Add images to the DOM
     $(data).filter('img').each( function() {
-      $('#showcase').children().first().append( this );
+      $('#showcase').append( this );
       $(this).css( 'visibility', 'hidden' );
       items.push( this );
-    });
+    } );
 
     var count = items.length;
 
@@ -287,10 +285,10 @@ function loadMoreGallery( file ) {
     for( var i in items ) {
       $(items[i]).one( 'load', function() {
         if( --count === 0 ) {
-            // Hide loading bar
-            $("#loading-more").css( 'display', 'none' );
+          // Hide loading bar
+          $("#loading-more").css( 'display', 'none' );
 
-            for( var i in items ) {
+          for( var i in items ) {
             var item = items[i] = galleryItemCreate( items[i] );
             itemAddInfo( item );
           }
@@ -320,7 +318,7 @@ function loadMoreGallery( file ) {
 
 function showcaseExpand() {
   // Disable carousel operation
-  showcase.data('cloud9carousel').halt();
+  showcase.data('carousel').deactivate();
 
   // Get carousel navigation items out of the way
   $('#expand').fadeOut( 1300 );
@@ -330,7 +328,7 @@ function showcaseExpand() {
   $('#nav-right').animate( {'margin-left': '344px'}, 1300 );
   infoWindowClose();
 
-  var items = showcase.data('cloud9carousel').items;
+  var items = showcase.data('carousel').items;
 
   gallery.initSize();
   gallery.addRows( sortByRows( items, gallery.width ) );
@@ -341,7 +339,7 @@ function showcaseExpand() {
     var startX = this.x;
     var startY = this.y;
     var startScale = this.scale;
-    var itemContainer = item.image.parentNode;
+    var itemContainer = this.image.parentNode;
 
     $(itemContainer).removeClass( 'cloud9-item' );
 
@@ -511,7 +509,7 @@ function keysInit() {
         break;
 
       /* escape */
-      case 27: 
+      case 27:
         infoWindowClose();
     }
   });
