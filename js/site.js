@@ -47,11 +47,9 @@ function showcaseInit() {
   showcase = $("#showcase");
 
   showcase.Cloud9Carousel( {
-    xPos: showcase.width() / 2,
-    yPos: 50,
     yRadius: 48,
-    speed: 0.18,
-    mirrorOptions: mirrorOpts,
+    speed: 3,
+    mirror: mirrorOpts,
     buttonLeft: $("#nav-left"),
     buttonRight: $("#nav-right"),
     bringToFront: true,
@@ -95,9 +93,7 @@ function showcaseInitSwipe() {
 }
 
 function showcaseUpdated( showcase ) {
-  $('#caption').html(
-    $(showcase.nearestItem().image).attr('alt')
-  );
+  $('#caption').text( showcase.nearestItem().alt );
 
   var c = Math.cos((showcase.floatIndex() % 1) * 2 * Math.PI);
   $('#caption').css( 'opacity', 0.5 + (0.5 * c) );

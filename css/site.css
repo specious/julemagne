@@ -146,9 +146,8 @@ body {
   position: absolute;
 }
 #showcase {
-  width: 100%;
-  height: 430px;
-  overflow: visible;
+  height: 420px;
+  overflow: visible !important;
   visibility: hidden;
 }
 .cloud9-item {
