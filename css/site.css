@@ -21,6 +21,7 @@
 }
 body {
   background-color: black;
+  background-image: url('../gfx/tile-nebula.jpg');
   color: #eee;
   margin: 0;
   overflow-x: hidden;
